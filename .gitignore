@@ -10,3 +10,7 @@ coverage/
 .vscode/
 .superpowers/
 .worktrees/
+/docs/
+/AGENTS.md
+/AI_CONTEXT.md
+/CLAUDE.md
