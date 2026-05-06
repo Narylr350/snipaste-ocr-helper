@@ -1,0 +1,195 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.Tests\\SnipasteOcrHelper.Tests.csproj": {}
+  },
+  "projects": {
+    "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.App\\SnipasteOcrHelper.App.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.App\\SnipasteOcrHelper.App.csproj",
+        "projectName": "SnipasteOcrHelper.App",
+        "projectPath": "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.App\\SnipasteOcrHelper.App.csproj",
+        "packagesPath": "C:\\Users\\Narylr\\.nuget\\packages\\",
+        "outputPath": "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.App\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Narylr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "TesseractOCR": {
+              "target": "Package",
+              "version": "[5.5.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.Tests\\SnipasteOcrHelper.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.Tests\\SnipasteOcrHelper.Tests.csproj",
+        "projectName": "SnipasteOcrHelper.Tests",
+        "projectPath": "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.Tests\\SnipasteOcrHelper.Tests.csproj",
+        "packagesPath": "C:\\Users\\Narylr\\.nuget\\packages\\",
+        "outputPath": "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Narylr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.App\\SnipasteOcrHelper.App.csproj": {
+                "projectPath": "D:\\Narylr\\snipaste-ocr-helper\\.worktrees\\vertical-mvp\\app\\SnipasteOcrHelper.App\\SnipasteOcrHelper.App.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.100"
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.14.1, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.4, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.22, 8.0.22]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
