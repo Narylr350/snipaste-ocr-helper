@@ -30,7 +30,7 @@ Automated tests cover settings persistence, file filtering/stability, OCR queue 
 ```bash
 dotnet test SnipasteOcrHelper.sln
 dotnet build SnipasteOcrHelper.sln -c Release
-dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --source https://api.nuget.org/v3/index.json
+dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --source https://api.nuget.org/v3/index.json
 ```
 
 ## Open Technical Questions
