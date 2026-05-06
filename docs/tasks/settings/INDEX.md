@@ -22,7 +22,6 @@ This domain lets users connect the helper to their Snipaste screenshot folder an
 
 ## Pending Features
 
-- Manual validation of first-run setup from a clean settings state.
 - Provider/language selection UI remains future scope.
 
 ## Last Effective Design
@@ -37,15 +36,14 @@ This domain lets users connect the helper to their Snipaste screenshot folder an
 - 2026-05-06: settings persistence tests passed as part of `dotnet test SnipasteOcrHelper.sln`.
 - 2026-05-06: full solution test run passed: 21 tests, 0 failures.
 - 2026-05-06: user manual validation reported no problems after configuring watch and tessdata directories.
+- 2026-05-06: first-run validation from a clean settings state detected the `Snipaste OCR Helper Settings` window.
 
 ## Known Issues
 
-- First-run settings UI still needs explicit validation from a clean settings state.
 - Tessdata path validity is not deeply validated beyond OCR failure reporting.
 
 ## Next Useful Moves
 
-- Validate first-run setup from a clean settings state.
 - Decide later whether OCR language should become user-editable.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.
