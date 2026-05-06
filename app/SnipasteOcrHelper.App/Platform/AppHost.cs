@@ -46,6 +46,7 @@ public sealed class AppHost : IDisposable
 
     public async void Start()
     {
+        await TessDataInstaller.CreateDefault().EnsureInstalledAsync();
         settings = await settingsStore.LoadAsync();
         ApplyStartupSetting(settings.StartWithWindows);
         if (string.IsNullOrWhiteSpace(settings.WatchDirectory) || !Directory.Exists(settings.WatchDirectory))

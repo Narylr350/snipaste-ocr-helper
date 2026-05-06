@@ -2,11 +2,11 @@
 
 ## Current Status
 
-`settings` now has JSON persistence and a WPF settings window for watch directory, tessdata directory, and Start-with-Windows configuration.
+`settings` now has JSON persistence and a WPF settings window for watch directory, optional tessdata directory override, and Start-with-Windows configuration.
 
 ## Active Scope
 
-Persist local app settings under LocalAppData, open settings on first run when the watch directory is missing, and let users choose directories and startup behavior from the MVP settings window.
+Persist local app settings under AppData, open settings on first run when the watch directory is missing, default tessdata to the embedded extraction path, and let users override directories and startup behavior from the MVP settings window.
 
 ## North Star Contribution
 
@@ -16,7 +16,7 @@ This domain lets users connect the helper to their Snipaste screenshot folder an
 
 - `AppSettings` model with watch directory, tessdata directory, OCR language, monitoring flag, and startup flag.
 - `SettingsStore` JSON load/save with defaults.
-- WPF `SettingsWindow` with folder browse buttons for watch and tessdata directories.
+- WPF `SettingsWindow` with folder browse buttons for watch directory and optional tessdata override.
 - Fixed OCR language display for `eng+chi_sim` in the MVP.
 - Start-with-Windows checkbox persisted into settings and applied by the app host.
 
@@ -34,7 +34,7 @@ This domain lets users connect the helper to their Snipaste screenshot folder an
 ## Validation
 
 - 2026-05-06: settings persistence tests passed as part of `dotnet test SnipasteOcrHelper.sln`.
-- 2026-05-06: full solution test run passed: 21 tests, 0 failures.
+- 2026-05-06: full solution test run passed: 26 tests, 0 failures.
 - 2026-05-06: user manual validation reported no problems after configuring watch and tessdata directories.
 - 2026-05-06: first-run validation from a clean settings state detected the `Snipaste OCR Helper Settings` window.
 

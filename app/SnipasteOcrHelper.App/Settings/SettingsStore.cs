@@ -33,8 +33,20 @@ public sealed class SettingsStore
         }
 
         await using var stream = File.OpenRead(path);
-        return await JsonSerializer.DeserializeAsync<AppSettings>(stream, JsonOptions, cancellationToken)
+        var settings = await JsonSerializer.DeserializeAsync<AppSettings>(stream, JsonOptions, cancellationToken)
             ?? new AppSettings();
+        if (!string.IsNullOrWhiteSpace(settings.TessDataDirectory))
+        {
+            return settings;
+        }
+
+        return new AppSettings
+        {
+            WatchDirectory = settings.WatchDirectory,
+            OcrLanguage = settings.OcrLanguage,
+            MonitoringEnabled = settings.MonitoringEnabled,
+            StartWithWindows = settings.StartWithWindows
+        };
     }
 
     public async Task SaveAsync(AppSettings settings, CancellationToken cancellationToken = default)

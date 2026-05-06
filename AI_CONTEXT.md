@@ -33,8 +33,8 @@ Primary domains:
 Current implementation snapshot:
 - `app/SnipasteOcrHelper.App`: `net8.0-windows` WPF tray app with Windows Forms `NotifyIcon`.
 - `app/SnipasteOcrHelper.Tests`: xUnit tests for settings, watcher primitives, queue, adapters, startup, and logging.
-- OCR MVP: local Tesseract via `TesseractOCR` package, language `eng+chi_sim`, tessdata path configured by user.
-- Publish MVP: framework-dependent win-x64 single-file app; see `app/README.md` and `docs/testing/README.md`.
+- OCR MVP: local Tesseract via `TesseractOCR` package, language `eng+chi_sim`, embedded tessdata extracted to LocalAppData on startup.
+- Publish MVP: framework-dependent win-x64 single-file app with embedded `eng`/`chi_sim` tessdata; see `app/README.md` and `docs/testing/README.md`.
 
 ## Required Reading Order
 

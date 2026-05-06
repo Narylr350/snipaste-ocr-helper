@@ -16,7 +16,29 @@ public sealed class SettingsStoreTests
         Assert.True(settings.MonitoringEnabled);
         Assert.False(settings.StartWithWindows);
         Assert.Equal(string.Empty, settings.WatchDirectory);
-        Assert.Equal(string.Empty, settings.TessDataDirectory);
+        Assert.Equal(DefaultPaths.TessDataDirectory, settings.TessDataDirectory);
+    }
+
+    [Fact]
+    public async Task LoadAsync_UsesDefaultTessdataDirectory_WhenSavedValueIsEmpty()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(dir);
+        var path = Path.Combine(dir, "settings.json");
+        await File.WriteAllTextAsync(path, """
+            {
+              "WatchDirectory": "C:\\Screenshots",
+              "TessDataDirectory": "",
+              "OcrLanguage": "eng+chi_sim",
+              "MonitoringEnabled": true,
+              "StartWithWindows": false
+            }
+            """);
+        var store = new SettingsStore(path);
+
+        var settings = await store.LoadAsync();
+
+        Assert.Equal(DefaultPaths.TessDataDirectory, settings.TessDataDirectory);
     }
 
     [Fact]

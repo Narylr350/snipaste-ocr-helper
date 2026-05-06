@@ -2,7 +2,7 @@
 
 ## Current Status
 
-`platform` now has a working WPF tray-app vertical MVP in `app/SnipasteOcrHelper.App`, with app startup wiring, settings-first launch, logging, startup toggle integration, and a win-x64 single-file publish command.
+`platform` now has a working WPF tray-app vertical MVP in `app/SnipasteOcrHelper.App`, with app startup wiring, settings-first launch, embedded tessdata extraction, logging, startup toggle integration, and a win-x64 single-file publish command.
 
 ## Active Scope
 
@@ -19,7 +19,7 @@ This domain owns the app shell that connects settings, watcher, queue, OCR, clip
 - First-run settings window when the watch directory is missing or invalid.
 - Current-user Start-with-Windows toggle through the Run registry key.
 - File logger under LocalAppData.
-- Framework-dependent win-x64 single-file publish command.
+- Framework-dependent win-x64 single-file publish command with embedded `eng`/`chi_sim` tessdata.
 
 ## Pending Features
 
@@ -36,16 +36,17 @@ This domain owns the app shell that connects settings, watcher, queue, OCR, clip
 
 ## Validation
 
-- 2026-05-06: `dotnet test SnipasteOcrHelper.sln` passed: 21 tests, 0 failures.
+- 2026-05-06: `dotnet test SnipasteOcrHelper.sln` passed: 26 tests, 0 failures.
 - 2026-05-06: `dotnet build SnipasteOcrHelper.sln -c Release` passed: 0 warnings, 0 errors.
 - 2026-05-06: win-x64 single-file publish succeeded with explicit nuget.org source and `IncludeAllContentForSelfExtract=true`.
 - 2026-05-06: automated desktop validation confirmed development output OCR and published single-file OCR both wrote generated image text to the clipboard using `C:\Program Files\Tesseract-OCR\tessdata`.
 - 2026-05-06: user manual validation reported no problems with app launch, configured Snipaste watch/tessdata directories, clipboard OCR output, and tray pause/resume.
 - 2026-05-06: first-run validation from a clean settings state detected the `Snipaste OCR Helper Settings` window.
+- 2026-05-06: published single exe extracted embedded tessdata to LocalAppData and completed OCR without manual OCR path configuration.
 
 ## Known Issues
 
-- The published app requires .NET 8 Windows Desktop runtime and local Tesseract tessdata for `eng+chi_sim`.
+- The published app requires .NET 8 Windows Desktop runtime; OCR tessdata is embedded but increases exe size.
 - Automatically overwriting clipboard can replace user-copied content.
 
 ## Next Useful Moves

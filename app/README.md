@@ -30,4 +30,4 @@ Output path:
 app/SnipasteOcrHelper.App/bin/Release/net8.0-windows/win-x64/publish/SnipasteOcrHelper.App.exe
 ```
 
-The target machine needs the .NET 8 Windows Desktop runtime and Tesseract tessdata files for `eng+chi_sim`.
+The target machine needs the .NET 8 Windows Desktop runtime. The exe embeds `eng` and `chi_sim` tessdata and extracts it to `%LOCALAPPDATA%\SnipasteOcrHelper\tessdata` on startup.
