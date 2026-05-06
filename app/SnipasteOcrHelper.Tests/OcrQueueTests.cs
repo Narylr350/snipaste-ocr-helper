@@ -11,7 +11,7 @@ public sealed class OcrQueueTests
         var ocr = new FakeOcrProvider(OcrResult.Success("hello"));
         var clipboard = new FakeClipboardWriter();
         var statuses = new List<AppStatusUpdate>();
-        var queue = new OcrQueue(ocr, clipboard, statuses.Add);
+        var queue = new OcrQueue(() => ocr, clipboard, statuses.Add);
         var path = Path.Combine(Path.GetTempPath(), "capture.png");
 
         await queue.EnqueueAsync(path);
@@ -29,7 +29,7 @@ public sealed class OcrQueueTests
         var ocr = new FakeOcrProvider(OcrResult.Success("   "));
         var clipboard = new FakeClipboardWriter();
         var statuses = new List<AppStatusUpdate>();
-        var queue = new OcrQueue(ocr, clipboard, statuses.Add);
+        var queue = new OcrQueue(() => ocr, clipboard, statuses.Add);
 
         await queue.EnqueueAsync("empty.png");
         await queue.DrainAsync();
@@ -46,7 +46,7 @@ public sealed class OcrQueueTests
             OcrResult.Success("next text"));
         var clipboard = new FakeClipboardWriter();
         var statuses = new List<AppStatusUpdate>();
-        var queue = new OcrQueue(ocr, clipboard, statuses.Add);
+        var queue = new OcrQueue(() => ocr, clipboard, statuses.Add);
 
         await queue.EnqueueAsync("first.png");
         await queue.EnqueueAsync("second.png");

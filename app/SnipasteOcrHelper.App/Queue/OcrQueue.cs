@@ -5,7 +5,7 @@ namespace SnipasteOcrHelper.Queue;
 
 public sealed class OcrQueue
 {
-    private readonly IImageOcrProvider ocrProvider;
+    private readonly Func<IImageOcrProvider> ocrProviderFactory;
     private readonly IClipboardWriter clipboardWriter;
     private readonly Action<AppStatusUpdate> publishStatus;
     private readonly Queue<string> pending = new();
@@ -13,11 +13,11 @@ public sealed class OcrQueue
     private bool processing;
 
     public OcrQueue(
-        IImageOcrProvider ocrProvider,
+        Func<IImageOcrProvider> ocrProviderFactory,
         IClipboardWriter clipboardWriter,
         Action<AppStatusUpdate> publishStatus)
     {
-        this.ocrProvider = ocrProvider;
+        this.ocrProviderFactory = ocrProviderFactory;
         this.clipboardWriter = clipboardWriter;
         this.publishStatus = publishStatus;
     }
@@ -51,7 +51,7 @@ public sealed class OcrQueue
 
                 try
                 {
-                    var result = await ocrProvider.RecognizeAsync(path, cancellationToken);
+                    var result = await ocrProviderFactory().RecognizeAsync(path, cancellationToken);
                     if (!result.IsSuccess)
                     {
                         publishStatus(new AppStatusUpdate(AppStatus.Error, result.Error));
