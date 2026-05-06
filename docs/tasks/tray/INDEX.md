@@ -2,7 +2,7 @@
 
 ## Current Status
 
-`tray` now has an MVP `NotifyIcon` controller with settings, pause/resume, exit, and status text updates.
+`tray` now has an MVP `NotifyIcon` controller with a custom app icon, settings, pause/resume, exit, and status text updates.
 
 ## Active Scope
 
@@ -18,10 +18,11 @@ This domain makes the OCR helper usable as a background utility rather than a fo
 - Context menu entries for Open Settings, Pause/Resume Monitoring, and Exit.
 - Pause menu label toggles between pause and resume states.
 - Tray tooltip status updates from `AppStatusUpdate`.
+- Tray icon uses bundled product artwork from `Assets/AppIcon.ico`.
 
 ## Pending Features
 
-- Custom icon and optional notifications remain future polish.
+- Optional tray notifications remain future polish.
 
 ## Last Effective Design
 
@@ -33,15 +34,16 @@ This domain makes the OCR helper usable as a background utility rather than a fo
 ## Validation
 
 - 2026-05-06: tray code compiled in Debug and Release builds.
-- 2026-05-06: full solution test run passed: 21 tests, 0 failures.
+- 2026-05-06: full solution test run passed: 29 tests, 0 failures.
 - 2026-05-06: user manual validation reported no problems with tray pause/resume.
+- 2026-05-06: app icon tests passed for executable, settings window, and tray icon references.
 
 ## Known Issues
 
-- Current tray icon uses `SystemIcons.Application`, not product artwork.
+- Optional tray notifications are not implemented.
 
 ## Next Useful Moves
 
-- Add a product icon only after MVP behavior is validated.
+- Decide whether release scope needs tray notifications or can ship without them.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.

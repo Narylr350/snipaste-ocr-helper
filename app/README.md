@@ -7,7 +7,7 @@ WPF tray application for the vertical MVP.
 ## Projects
 
 - `SnipasteOcrHelper.App`: Windows tray app targeting `net8.0-windows`.
-- `SnipasteOcrHelper.Tests`: xUnit tests for settings, watcher primitives, queue orchestration, adapters, startup toggle, and logging.
+- `SnipasteOcrHelper.Tests`: xUnit tests for settings, watcher primitives, queue orchestration, adapters, startup toggle, logging, and app icon wiring.
 
 ## Build and test
 
@@ -30,4 +30,4 @@ Output path:
 app/SnipasteOcrHelper.App/bin/Release/net8.0-windows/win-x64/publish/SnipasteOcrHelper.App.exe
 ```
 
-The target machine needs the .NET 8 Windows Desktop runtime. The exe embeds `eng` and `chi_sim` tessdata and extracts it to `%LOCALAPPDATA%\SnipasteOcrHelper\tessdata` on startup.
+The target machine needs the .NET 8 Windows Desktop runtime. The exe includes the bundled app icon, embeds `eng` and `chi_sim` tessdata, and extracts tessdata to `%LOCALAPPDATA%\SnipasteOcrHelper\tessdata` on startup.

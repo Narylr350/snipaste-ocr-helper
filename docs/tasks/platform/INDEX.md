@@ -2,7 +2,7 @@
 
 ## Current Status
 
-`platform` now has a working WPF tray-app vertical MVP in `app/SnipasteOcrHelper.App`, with app startup wiring, settings-first launch, embedded tessdata extraction, logging, startup toggle integration, and a win-x64 single-file publish command.
+`platform` now has a working WPF tray-app vertical MVP in `app/SnipasteOcrHelper.App`, with app startup wiring, settings-first launch, embedded tessdata extraction, custom app icon wiring, logging, startup toggle integration, and a win-x64 single-file publish command.
 
 ## Active Scope
 
@@ -20,10 +20,11 @@ This domain owns the app shell that connects settings, watcher, queue, OCR, clip
 - Current-user Start-with-Windows toggle through the Run registry key.
 - File logger under LocalAppData.
 - Framework-dependent win-x64 single-file publish command with embedded `eng`/`chi_sim` tessdata.
+- Bundled application icon applied to the executable, settings window, and tray icon.
 
 ## Pending Features
 
-- Product polish after MVP validation: icon, notifications, installer/autostart UX, and optional OCR history/manual retry.
+- Product polish after MVP validation: notifications, installer/autostart UX, and optional OCR history/manual retry.
 - Cloud OCR/provider switching remains future scope.
 
 ## Last Effective Design
@@ -36,13 +37,14 @@ This domain owns the app shell that connects settings, watcher, queue, OCR, clip
 
 ## Validation
 
-- 2026-05-06: `dotnet test SnipasteOcrHelper.sln` passed: 26 tests, 0 failures.
+- 2026-05-06: `dotnet test SnipasteOcrHelper.sln` passed: 29 tests, 0 failures.
 - 2026-05-06: `dotnet build SnipasteOcrHelper.sln -c Release` passed: 0 warnings, 0 errors.
 - 2026-05-06: win-x64 single-file publish succeeded with explicit nuget.org source and `IncludeAllContentForSelfExtract=true`.
 - 2026-05-06: automated desktop validation confirmed development output OCR and published single-file OCR both wrote generated image text to the clipboard using `C:\Program Files\Tesseract-OCR\tessdata`.
 - 2026-05-06: user manual validation reported no problems with app launch, configured Snipaste watch/tessdata directories, clipboard OCR output, and tray pause/resume.
 - 2026-05-06: first-run validation from a clean settings state detected the `Snipaste OCR Helper Settings` window.
 - 2026-05-06: published single exe extracted embedded tessdata to LocalAppData and completed OCR without manual OCR path configuration.
+- 2026-05-06: executable, settings window, and tray icon were wired to bundled `Assets/AppIcon.ico`; full tests, Release build, and publish passed.
 
 ## Known Issues
 
@@ -51,6 +53,6 @@ This domain owns the app shell that connects settings, watcher, queue, OCR, clip
 
 ## Next Useful Moves
 
-- Decide whether MVP closure needs a custom tray icon or notifications before release.
+- Decide whether MVP closure needs tray notifications before release, or proceed to release packaging.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.
