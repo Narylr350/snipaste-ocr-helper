@@ -1,33 +1,33 @@
-# Main application
+# 主应用
 
-## Role
+## 作用
 
-WPF tray application for the vertical MVP.
+垂直 MVP 的 WPF 托盘应用。
 
-## Projects
+## 项目
 
-- `SnipasteOcrHelper.App`: Windows tray app targeting `net8.0-windows`.
-- `SnipasteOcrHelper.Tests`: xUnit tests for settings, watcher primitives, queue orchestration, adapters, startup toggle, logging, and app icon wiring.
+- `SnipasteOcrHelper.App`：目标框架为 `net8.0-windows` 的 Windows 托盘应用。
+- `SnipasteOcrHelper.Tests`：覆盖设置、文件监控基础逻辑、队列编排、适配器、开机启动、日志和应用图标接入的 xUnit 测试。
 
-## Build and test
+## 构建和测试
 
 ```bash
 dotnet test SnipasteOcrHelper.sln
 dotnet build SnipasteOcrHelper.sln -c Release
 ```
 
-## Publish
+## 发布
 
-The MVP publish target is a framework-dependent win-x64 single-file app:
+MVP 发布目标是依赖框架的 win-x64 单文件应用：
 
 ```bash
 dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --source https://api.nuget.org/v3/index.json
 ```
 
-Output path:
+输出路径：
 
 ```text
 app/SnipasteOcrHelper.App/bin/Release/net8.0-windows/win-x64/publish/SnipasteOcrHelper.App.exe
 ```
 
-The target machine needs the .NET 8 Windows Desktop runtime. The exe includes the bundled app icon, embeds `eng` and `chi_sim` tessdata, and extracts tessdata to `%LOCALAPPDATA%\SnipasteOcrHelper\tessdata` on startup.
+目标机器需要安装 .NET 8 Windows Desktop Runtime。exe 包含内置应用图标，嵌入 `eng` 和 `chi_sim` tessdata，并在启动时把 tessdata 解压到 `%LOCALAPPDATA%\SnipasteOcrHelper\tessdata`。
