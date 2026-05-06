@@ -21,7 +21,6 @@ This domain protects the OCR pipeline from duplicate filesystem noise and partia
 
 ## Pending Features
 
-- Manual validation with Snipaste auto-save events.
 - Additional tuning if real-world Snipaste writes produce duplicate or delayed events.
 
 ## Last Effective Design
@@ -35,15 +34,14 @@ This domain protects the OCR pipeline from duplicate filesystem noise and partia
 
 - 2026-05-06: watcher unit tests passed as part of `dotnet test SnipasteOcrHelper.sln`.
 - 2026-05-06: full solution test run passed: 21 tests, 0 failures.
+- 2026-05-06: user manual validation reported no problems with Snipaste watch-directory processing.
 
 ## Known Issues
 
 - `FileSystemWatcher` may still emit duplicate events; queue deduplication handles already-seen paths for the current app lifetime.
-- Real Snipaste write timing still needs manual validation.
 
 ## Next Useful Moves
 
-- Validate large screenshot writes do not trigger OCR before the file is complete.
-- If duplicates appear in manual validation, tune stability timing or event coalescing.
+- If duplicates appear in future usage, tune stability timing or event coalescing.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.

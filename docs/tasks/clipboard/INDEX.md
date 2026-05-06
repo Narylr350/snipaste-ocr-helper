@@ -21,7 +21,6 @@ This domain delivers the core product value: recognized screenshot text becomes 
 
 ## Pending Features
 
-- Manual validation that foreground apps can paste OCR output after a screenshot is processed.
 - Future UX around clipboard overwrite warnings is outside the current MVP.
 
 ## Last Effective Design
@@ -35,15 +34,14 @@ This domain delivers the core product value: recognized screenshot text becomes 
 
 - 2026-05-06: clipboard adapter and queue clipboard tests passed as part of `dotnet test SnipasteOcrHelper.sln`.
 - 2026-05-06: full solution test run passed: 21 tests, 0 failures.
+- 2026-05-06: user manual validation reported no problems with OCR text appearing in the clipboard.
 
 ## Known Issues
 
 - Direct clipboard overwrite can replace content the user copied between screenshot capture and OCR completion.
-- Clipboard behavior still needs manual validation in the running WPF app.
 
 ## Next Useful Moves
 
-- Validate successful OCR output can be pasted into another application.
 - Revisit overwrite UX only if MVP feedback shows it is too disruptive.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.

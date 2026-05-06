@@ -23,7 +23,7 @@ This domain owns the app shell that connects settings, watcher, queue, OCR, clip
 
 ## Pending Features
 
-- Manual validation with real Snipaste screenshots, tray interaction, pause/resume, and first-run settings UI.
+- Manual validation of first-run settings UI from a clean settings state.
 - Product polish after MVP validation: icon, notifications, installer/autostart UX, and optional OCR history/manual retry.
 - Cloud OCR/provider switching remains future scope.
 
@@ -41,16 +41,17 @@ This domain owns the app shell that connects settings, watcher, queue, OCR, clip
 - 2026-05-06: `dotnet build SnipasteOcrHelper.sln -c Release` passed: 0 warnings, 0 errors.
 - 2026-05-06: win-x64 single-file publish succeeded with explicit nuget.org source and `IncludeAllContentForSelfExtract=true`.
 - 2026-05-06: automated desktop validation confirmed development output OCR and published single-file OCR both wrote generated image text to the clipboard using `C:\Program Files\Tesseract-OCR\tessdata`.
+- 2026-05-06: user manual validation reported no problems with app launch, configured Snipaste watch/tessdata directories, clipboard OCR output, and tray pause/resume.
 
 ## Known Issues
 
-- Real Snipaste event flow, tray menu interaction, pause/resume, and first-run settings UI still need manual validation on Windows.
+- First-run settings UI still needs explicit validation from a clean settings state.
 - The published app requires .NET 8 Windows Desktop runtime and local Tesseract tessdata for `eng+chi_sim`.
 - Automatically overwriting clipboard can replace user-copied content.
 
 ## Next Useful Moves
 
-- Manually validate with Snipaste auto-save, tray pause/resume, and first-run settings UI.
+- Validate first-run settings UI from a clean settings state.
 - Decide whether MVP closure needs a custom tray icon or notifications before release.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.

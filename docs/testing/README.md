@@ -36,12 +36,11 @@ Use these product workflows as manual validation targets:
 - 2026-05-06: `dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --source https://api.nuget.org/v3/index.json` succeeded and produced `SnipasteOcrHelper.App.exe`.
 - 2026-05-06: Automated desktop validation ran from development output with generated image `HELLO OCR 123`; OCR wrote `HELLO OCR 123` to clipboard. Tessdata used: `C:\Program Files\Tesseract-OCR\tessdata`.
 - 2026-05-06: Automated desktop validation ran from publish output with generated image `PUBLISHED OCR 456`; OCR wrote `PUBLISHED OCR 456` to clipboard after adding `IncludeAllContentForSelfExtract=true` to the publish command. Tessdata used: `C:\Program Files\Tesseract-OCR\tessdata`.
+- 2026-05-06: User manual validation reported no problems after launching the app, configuring Snipaste watch/tessdata directories, checking clipboard OCR output, and checking tray pause/resume.
 
 ## Known Gaps
 
-- Real Snipaste auto-save events still need manual validation; the automated run used generated PNG files in temporary watch directories.
-- Tray menu behavior and pause/resume still need manual validation through the Windows tray UI.
-- First-run settings-window behavior still needs manual validation; the automated run pre-seeded settings to avoid interactive desktop UI.
+- First-run settings-window behavior still needs explicit validation from a clean settings state.
 - Manual launch should be done intentionally because app startup applies the persisted Start-with-Windows setting to the current-user Run registry key.
 - The MVP uses local Tesseract only; cloud OCR/provider switching remains future scope.
 

@@ -21,7 +21,6 @@ This domain makes the OCR helper usable as a background utility rather than a fo
 
 ## Pending Features
 
-- Manual validation of tray menu behavior and tooltip updates.
 - Custom icon and optional notifications remain future polish.
 
 ## Last Effective Design
@@ -35,15 +34,14 @@ This domain makes the OCR helper usable as a background utility rather than a fo
 
 - 2026-05-06: tray code compiled in Debug and Release builds.
 - 2026-05-06: full solution test run passed: 21 tests, 0 failures.
+- 2026-05-06: user manual validation reported no problems with tray pause/resume.
 
 ## Known Issues
 
 - Current tray icon uses `SystemIcons.Application`, not product artwork.
-- Tray UI still needs manual validation because NotifyIcon interaction is not covered by automated tests.
 
 ## Next Useful Moves
 
-- Launch the app and verify the context menu actions in the Windows tray.
 - Add a product icon only after MVP behavior is validated.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.
