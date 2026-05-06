@@ -7,6 +7,7 @@ using SnipasteOcrHelper.Queue;
 using SnipasteOcrHelper.Settings;
 using SnipasteOcrHelper.Tray;
 using SnipasteOcrHelper.Watching;
+using Strings = SnipasteOcrHelper.Localization.Resources;
 
 namespace SnipasteOcrHelper;
 
@@ -51,7 +52,7 @@ public sealed class AppHost : IDisposable
         ApplyStartupSetting(settings.StartWithWindows);
         if (string.IsNullOrWhiteSpace(settings.WatchDirectory) || !Directory.Exists(settings.WatchDirectory))
         {
-            UpdateStatus(new AppStatusUpdate(AppStatus.NeedsSetup, "Configure watch directory"));
+            UpdateStatus(new AppStatusUpdate(AppStatus.NeedsSetup, Strings.StatusConfigureWatchDirectory));
             OpenSettings();
             return;
         }
@@ -73,7 +74,7 @@ public sealed class AppHost : IDisposable
             }
             else
             {
-                UpdateStatus(new AppStatusUpdate(AppStatus.Error, "Watch directory does not exist"));
+                UpdateStatus(new AppStatusUpdate(AppStatus.Error, Strings.StatusWatchDirectoryMissing));
             }
         }
     }
@@ -90,7 +91,7 @@ public sealed class AppHost : IDisposable
         if (paused)
         {
             watcher.Pause();
-            UpdateStatus(new AppStatusUpdate(AppStatus.Paused, "Monitoring paused"));
+            UpdateStatus(new AppStatusUpdate(AppStatus.Paused, Strings.StatusMonitoringPaused));
         }
         else
         {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AppName" xml:space="preserve"><value>Snipaste OCR Helper</value></data>
+  <data name="TrayOpenSettings" xml:space="preserve"><value>打开设置</value></data>
+  <data name="TrayPauseMonitoring" xml:space="preserve"><value>暂停监控</value></data>
+  <data name="TrayResumeMonitoring" xml:space="preserve"><value>恢复监控</value></data>
+  <data name="TrayExit" xml:space="preserve"><value>退出</value></data>
+  <data name="TrayTooltip" xml:space="preserve"><value>{0} - {1}</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>Snipaste OCR Helper 设置</value></data>
+  <data name="SettingsDescription" xml:space="preserve"><value>配置 Snipaste 保存截图的文件夹。</value></data>
+  <data name="SettingsWatchDirectory" xml:space="preserve"><value>监控目录</value></data>
+  <data name="SettingsTessDataDirectory" xml:space="preserve"><value>Tessdata 目录</value></data>
+  <data name="SettingsOcrLanguage" xml:space="preserve"><value>OCR 语言</value></data>
+  <data name="SettingsStartWithWindows" xml:space="preserve"><value>开机启动</value></data>
+  <data name="SettingsBrowse" xml:space="preserve"><value>浏览</value></data>
+  <data name="SettingsSave" xml:space="preserve"><value>保存</value></data>
+  <data name="SettingsCancel" xml:space="preserve"><value>取消</value></data>
+  <data name="StatusNeedsSetup" xml:space="preserve"><value>需要设置</value></data>
+  <data name="StatusRunning" xml:space="preserve"><value>运行中</value></data>
+  <data name="StatusPaused" xml:space="preserve"><value>已暂停</value></data>
+  <data name="StatusProcessing" xml:space="preserve"><value>识别中</value></data>
+  <data name="StatusLastSuccess" xml:space="preserve"><value>上次成功</value></data>
+  <data name="StatusError" xml:space="preserve"><value>错误</value></data>
+  <data name="StatusNoText" xml:space="preserve"><value>未识别到文字</value></data>
+  <data name="StatusConfigureWatchDirectory" xml:space="preserve"><value>请配置截图目录</value></data>
+  <data name="StatusWatchDirectoryMissing" xml:space="preserve"><value>监控目录不存在</value></data>
+  <data name="StatusMonitoringPaused" xml:space="preserve"><value>监控已暂停</value></data>
+</root>

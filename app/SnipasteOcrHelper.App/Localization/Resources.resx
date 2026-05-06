@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AppName" xml:space="preserve"><value>Snipaste OCR Helper</value></data>
+  <data name="TrayOpenSettings" xml:space="preserve"><value>Open Settings</value></data>
+  <data name="TrayPauseMonitoring" xml:space="preserve"><value>Pause Monitoring</value></data>
+  <data name="TrayResumeMonitoring" xml:space="preserve"><value>Resume Monitoring</value></data>
+  <data name="TrayExit" xml:space="preserve"><value>Exit</value></data>
+  <data name="TrayTooltip" xml:space="preserve"><value>{0} - {1}</value></data>
+  <data name="SettingsTitle" xml:space="preserve"><value>Snipaste OCR Helper Settings</value></data>
+  <data name="SettingsDescription" xml:space="preserve"><value>Configure the folder where Snipaste saves screenshots.</value></data>
+  <data name="SettingsWatchDirectory" xml:space="preserve"><value>Watch directory</value></data>
+  <data name="SettingsTessDataDirectory" xml:space="preserve"><value>Tessdata directory</value></data>
+  <data name="SettingsOcrLanguage" xml:space="preserve"><value>OCR language</value></data>
+  <data name="SettingsStartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
+  <data name="SettingsBrowse" xml:space="preserve"><value>Browse</value></data>
+  <data name="SettingsSave" xml:space="preserve"><value>Save</value></data>
+  <data name="SettingsCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="StatusNeedsSetup" xml:space="preserve"><value>Needs setup</value></data>
+  <data name="StatusRunning" xml:space="preserve"><value>Running</value></data>
+  <data name="StatusPaused" xml:space="preserve"><value>Paused</value></data>
+  <data name="StatusProcessing" xml:space="preserve"><value>Processing</value></data>
+  <data name="StatusLastSuccess" xml:space="preserve"><value>Last success</value></data>
+  <data name="StatusError" xml:space="preserve"><value>Error</value></data>
+  <data name="StatusNoText" xml:space="preserve"><value>No text</value></data>
+  <data name="StatusConfigureWatchDirectory" xml:space="preserve"><value>Configure watch directory</value></data>
+  <data name="StatusWatchDirectoryMissing" xml:space="preserve"><value>Watch directory does not exist</value></data>
+  <data name="StatusMonitoringPaused" xml:space="preserve"><value>Monitoring paused</value></data>
+</root>
