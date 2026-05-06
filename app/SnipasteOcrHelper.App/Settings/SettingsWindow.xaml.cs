@@ -1,4 +1,5 @@
 using System.Windows;
+using SnipasteOcrHelper;
 using Forms = System.Windows.Forms;
 
 namespace SnipasteOcrHelper.Settings;
@@ -12,6 +13,7 @@ public partial class SettingsWindow : Window
     public SettingsWindow(AppSettings settings)
     {
         InitializeComponent();
+        Icon = AppIconLoader.LoadImageSource();
         originalSettings = settings;
         WatchDirectoryTextBox.Text = settings.WatchDirectory;
         TessDataDirectoryTextBox.Text = settings.TessDataDirectory;

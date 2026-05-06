@@ -1,6 +1,5 @@
-using System.Drawing;
-using System.Windows;
 using Forms = System.Windows.Forms;
+using SnipasteOcrHelper;
 using SnipasteOcrHelper.Core;
 
 namespace SnipasteOcrHelper.Tray;
@@ -22,7 +21,7 @@ public sealed class TrayController : IDisposable
         pauseItem = new Forms.ToolStripMenuItem("Pause Monitoring", null, (_, _) => TogglePaused());
         notifyIcon = new Forms.NotifyIcon
         {
-            Icon = LoadAppIcon(),
+            Icon = AppIconLoader.LoadIcon(),
             Visible = true,
             Text = "Snipaste OCR Helper",
             ContextMenuStrip = new Forms.ContextMenuStrip()
@@ -35,13 +34,6 @@ public sealed class TrayController : IDisposable
     public void UpdateStatus(AppStatusUpdate update)
     {
         notifyIcon.Text = $"Snipaste OCR Helper - {update.Status}";
-    }
-
-    private static Icon LoadAppIcon()
-    {
-        var info = System.Windows.Application.GetResourceStream(new Uri("/Assets/AppIcon.ico", UriKind.Relative))
-            ?? throw new InvalidOperationException("Application icon resource is missing.");
-        return new Icon(info.Stream);
     }
 
     private void TogglePaused()

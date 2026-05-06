@@ -13,21 +13,33 @@ public sealed class AppIconTests
     }
 
     [Fact]
-    public void SettingsWindowUsesAppIcon()
+    public void AppIconLoaderUsesExecutableIcon()
     {
         var root = FindRepositoryRoot();
-        var xaml = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Settings", "SettingsWindow.xaml"));
+        var source = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Platform", "AppIconLoader.cs"));
 
-        Assert.Contains("Icon=\"/Assets/AppIcon.ico\"", xaml);
+        Assert.Contains("ExtractAssociatedIcon", source);
     }
 
     [Fact]
-    public void TrayControllerUsesAppIcon()
+    public void SettingsWindowUsesExecutableIcon()
+    {
+        var root = FindRepositoryRoot();
+        var xaml = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Settings", "SettingsWindow.xaml"));
+        var source = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Settings", "SettingsWindow.xaml.cs"));
+
+        Assert.DoesNotContain("Icon=\"/Assets/AppIcon.ico\"", xaml);
+        Assert.Contains("AppIconLoader.LoadImageSource()", source);
+    }
+
+    [Fact]
+    public void TrayControllerUsesExecutableIcon()
     {
         var root = FindRepositoryRoot();
         var source = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Tray", "TrayController.cs"));
 
-        Assert.Contains("Assets/AppIcon.ico", source);
+        Assert.Contains("AppIconLoader.LoadIcon()", source);
+        Assert.DoesNotContain("GetResourceStream", source);
         Assert.DoesNotContain("SystemIcons.Application", source);
     }
 
