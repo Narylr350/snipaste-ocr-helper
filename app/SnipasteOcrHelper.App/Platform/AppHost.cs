@@ -1,6 +1,7 @@
 using System.IO;
 using SnipasteOcrHelper.Clipboard;
 using SnipasteOcrHelper.Core;
+using SnipasteOcrHelper.History;
 using SnipasteOcrHelper.Ocr;
 using SnipasteOcrHelper.Platform;
 using SnipasteOcrHelper.Queue;
@@ -17,6 +18,7 @@ public sealed class AppHost : IDisposable
     private readonly StartupManager startupManager;
     private readonly AppLogger logger;
     private readonly ScreenshotWatcher watcher;
+    private readonly OcrHistoryStore history = new();
     private readonly OcrQueue queue;
     private readonly TrayController tray;
     private AppSettings settings = new();
@@ -31,13 +33,14 @@ public sealed class AppHost : IDisposable
         queue = new OcrQueue(
             () => new TesseractOcrProvider(settings.TessDataDirectory, settings.OcrLanguage),
             clipboard,
-            UpdateStatus);
+            UpdateStatus,
+            history);
         watcher = new ScreenshotWatcher(async path =>
         {
             await queue.EnqueueAsync(path);
             await queue.DrainAsync();
         }, new FileStabilityProbe());
-        tray = new TrayController(OpenSettings, TogglePaused, () => System.Windows.Application.Current.Shutdown());
+        tray = new TrayController(OpenSettings, OpenHistory, TogglePaused, () => System.Windows.Application.Current.Shutdown());
     }
 
     public static AppHost CreateDefault()
@@ -47,7 +50,6 @@ public sealed class AppHost : IDisposable
 
     public async void Start()
     {
-        await TessDataInstaller.CreateDefault().EnsureInstalledAsync();
         settings = await settingsStore.LoadAsync();
         ApplyStartupSetting(settings.StartWithWindows);
         if (string.IsNullOrWhiteSpace(settings.WatchDirectory) || !Directory.Exists(settings.WatchDirectory))
@@ -77,6 +79,11 @@ public sealed class AppHost : IDisposable
                 UpdateStatus(new AppStatusUpdate(AppStatus.Error, Strings.StatusWatchDirectoryMissing));
             }
         }
+    }
+
+    private void OpenHistory()
+    {
+        new OcrHistoryWindow(history).Show();
     }
 
     private void StartWatcher()

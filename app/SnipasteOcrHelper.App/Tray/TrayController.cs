@@ -9,14 +9,16 @@ public sealed class TrayController : IDisposable
 {
     private readonly Forms.NotifyIcon notifyIcon;
     private readonly Action openSettings;
+    private readonly Action openHistory;
     private readonly Action togglePaused;
     private readonly Action exit;
     private readonly Forms.ToolStripMenuItem pauseItem;
     private bool paused;
 
-    public TrayController(Action openSettings, Action togglePaused, Action exit)
+    public TrayController(Action openSettings, Action openHistory, Action togglePaused, Action exit)
     {
         this.openSettings = openSettings;
+        this.openHistory = openHistory;
         this.togglePaused = togglePaused;
         this.exit = exit;
         pauseItem = new Forms.ToolStripMenuItem(Strings.TrayPauseMonitoring, null, (_, _) => TogglePaused());
@@ -28,6 +30,7 @@ public sealed class TrayController : IDisposable
             ContextMenuStrip = new Forms.ContextMenuStrip()
         };
         notifyIcon.ContextMenuStrip.Items.Add(Strings.TrayOpenSettings, null, (_, _) => this.openSettings());
+        notifyIcon.ContextMenuStrip.Items.Add(Strings.TrayOcrHistory, null, (_, _) => this.openHistory());
         notifyIcon.ContextMenuStrip.Items.Add(pauseItem);
         notifyIcon.ContextMenuStrip.Items.Add(Strings.TrayExit, null, (_, _) => this.exit());
     }

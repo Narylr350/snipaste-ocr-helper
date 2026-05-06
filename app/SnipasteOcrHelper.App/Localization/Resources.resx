@@ -6,6 +6,7 @@
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <data name="AppName" xml:space="preserve"><value>Snipaste OCR Helper</value></data>
   <data name="TrayOpenSettings" xml:space="preserve"><value>Open Settings</value></data>
+  <data name="TrayOcrHistory" xml:space="preserve"><value>OCR History</value></data>
   <data name="TrayPauseMonitoring" xml:space="preserve"><value>Pause Monitoring</value></data>
   <data name="TrayResumeMonitoring" xml:space="preserve"><value>Resume Monitoring</value></data>
   <data name="TrayExit" xml:space="preserve"><value>Exit</value></data>
@@ -19,6 +20,15 @@
   <data name="SettingsBrowse" xml:space="preserve"><value>Browse</value></data>
   <data name="SettingsSave" xml:space="preserve"><value>Save</value></data>
   <data name="SettingsCancel" xml:space="preserve"><value>Cancel</value></data>
+  <data name="HistoryTitle" xml:space="preserve"><value>Recognition History</value></data>
+  <data name="HistoryEmpty" xml:space="preserve"><value>No recognition records yet.</value></data>
+  <data name="HistoryTimeColumn" xml:space="preserve"><value>Time</value></data>
+  <data name="HistoryFileColumn" xml:space="preserve"><value>File</value></data>
+  <data name="HistoryStatusColumn" xml:space="preserve"><value>Status</value></data>
+  <data name="HistoryDetailColumn" xml:space="preserve"><value>Detail</value></data>
+  <data name="HistoryStatusSuccess" xml:space="preserve"><value>Success</value></data>
+  <data name="HistoryStatusNoText" xml:space="preserve"><value>No text</value></data>
+  <data name="HistoryStatusFailed" xml:space="preserve"><value>Failed</value></data>
   <data name="StatusNeedsSetup" xml:space="preserve"><value>Needs setup</value></data>
   <data name="StatusRunning" xml:space="preserve"><value>Running</value></data>
   <data name="StatusPaused" xml:space="preserve"><value>Paused</value></data>

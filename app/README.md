@@ -18,7 +18,7 @@ dotnet build SnipasteOcrHelper.sln -c Release
 
 ## 发布
 
-MVP 发布目标是依赖框架的 win-x64 单文件应用：
+MVP 发布目标是依赖框架的 win-x64 单文件应用，再由 Inno Setup 打包成安装器：
 
 ```bash
 dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:IncludeAllContentForSelfExtract=true --source https://api.nuget.org/v3/index.json
@@ -30,4 +30,4 @@ dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release
 app/SnipasteOcrHelper.App/bin/Release/net8.0-windows/win-x64/publish/SnipasteOcrHelper.App.exe
 ```
 
-目标机器需要安装 .NET 8 Windows Desktop Runtime。exe 包含内置应用图标，嵌入 `eng` 和 `chi_sim` tessdata，并在启动时把 tessdata 解压到 `%LOCALAPPDATA%\SnipasteOcrHelper\tessdata`。
+目标机器需要安装 .NET 8 Windows Desktop Runtime。exe 包含内置应用图标，`eng` 和 `chi_sim` tessdata 由安装器安装到应用安装目录下的 `tessdata` 文件夹。

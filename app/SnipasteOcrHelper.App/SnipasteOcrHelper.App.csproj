@@ -11,7 +11,4 @@
   <ItemGroup>
     <PackageReference Include="TesseractOCR" Version="5.5.2" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Ocr\tessdata\*.traineddata" />
-  </ItemGroup>
 </Project>

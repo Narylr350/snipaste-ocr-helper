@@ -1,18 +1,13 @@
-using System.Text;
-using SnipasteOcrHelper.Ocr;
 using SnipasteOcrHelper.Settings;
 
 namespace SnipasteOcrHelper.Tests;
 
-public sealed class TessDataInstallerTests
+public sealed class TessDataPackagingTests
 {
     [Fact]
-    public void AppSettings_DefaultsTessdataDirectoryToLocalAppData()
+    public void AppSettings_DefaultsTessdataDirectoryToAppBaseDirectory()
     {
-        var expected = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-            "SnipasteOcrHelper",
-            "tessdata");
+        var expected = Path.Combine(AppContext.BaseDirectory, "tessdata");
 
         var settings = new AppSettings();
 
@@ -20,50 +15,44 @@ public sealed class TessDataInstallerTests
     }
 
     [Fact]
-    public async Task EnsureInstalledAsync_WritesMissingEmbeddedTrainedData()
+    public void AppProject_DoesNotEmbedTessdata()
     {
-        var target = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"), "tessdata");
-        var installer = new TessDataInstaller(
-            target,
-            new[]
-            {
-                new TessDataResource("eng.traineddata", () => new MemoryStream(Encoding.UTF8.GetBytes("eng-data"))),
-                new TessDataResource("chi_sim.traineddata", () => new MemoryStream(Encoding.UTF8.GetBytes("chi-data")))
-            });
+        var root = FindRepositoryRoot();
+        var project = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "SnipasteOcrHelper.App.csproj"));
 
-        await installer.EnsureInstalledAsync();
-
-        Assert.Equal("eng-data", await File.ReadAllTextAsync(Path.Combine(target, "eng.traineddata")));
-        Assert.Equal("chi-data", await File.ReadAllTextAsync(Path.Combine(target, "chi_sim.traineddata")));
+        Assert.DoesNotContain("EmbeddedResource Include=\"Ocr\\tessdata", project);
     }
 
     [Fact]
-    public async Task EnsureInstalledAsync_ReplacesInstalledData_WhenVersionChanges()
+    public void AppHost_DoesNotExtractBundledTessdataOnStartup()
     {
-        var target = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"), "tessdata");
-        Directory.CreateDirectory(target);
-        await File.WriteAllTextAsync(Path.Combine(target, "eng.traineddata"), "old-data");
-        await File.WriteAllTextAsync(Path.Combine(target, ".version"), "old-version");
-        var installer = new TessDataInstaller(
-            target,
-            new[] { new TessDataResource("eng.traineddata", () => new MemoryStream(Encoding.UTF8.GetBytes("new-data"))) },
-            "new-version");
+        var root = FindRepositoryRoot();
+        var appHost = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Platform", "AppHost.cs"));
 
-        await installer.EnsureInstalledAsync();
-
-        Assert.Equal("new-data", await File.ReadAllTextAsync(Path.Combine(target, "eng.traineddata")));
-        Assert.Equal("new-version", await File.ReadAllTextAsync(Path.Combine(target, ".version")));
+        Assert.DoesNotContain("TessDataInstaller", appHost);
     }
 
     [Fact]
-    public async Task CreateDefault_ExtractsBundledEnglishAndChineseData()
+    public void InnoSetupScript_InstallsAppAndTessdataUnderAppDirectory()
     {
-        var target = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"), "tessdata");
-        var installer = TessDataInstaller.CreateDefault(target);
+        var root = FindRepositoryRoot();
+        var script = File.ReadAllText(Path.Combine(root, "installer", "SnipasteOcrHelper.iss"));
 
-        await installer.EnsureInstalledAsync();
+        Assert.Contains("DefaultDirName={localappdata}\\Programs\\Snipaste OCR Helper", script);
+        Assert.Contains("Source: \"..\\app\\SnipasteOcrHelper.App\\bin\\Release\\net8.0-windows\\win-x64\\publish\\*\"", script);
+        Assert.Contains("DestDir: \"{app}\"", script);
+        Assert.Contains("Source: \"..\\app\\SnipasteOcrHelper.App\\Ocr\\tessdata\\*.traineddata\"", script);
+        Assert.Contains("DestDir: \"{app}\\tessdata\"", script);
+    }
 
-        Assert.True(new FileInfo(Path.Combine(target, "eng.traineddata")).Length > 1000);
-        Assert.True(new FileInfo(Path.Combine(target, "chi_sim.traineddata")).Length > 1000);
+    private static string FindRepositoryRoot()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "SnipasteOcrHelper.sln")))
+        {
+            directory = directory.Parent;
+        }
+
+        return directory?.FullName ?? throw new DirectoryNotFoundException("Could not find repository root.");
     }
 }

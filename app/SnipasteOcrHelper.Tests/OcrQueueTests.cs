@@ -1,4 +1,5 @@
 using SnipasteOcrHelper.Core;
+using SnipasteOcrHelper.History;
 using SnipasteOcrHelper.Queue;
 
 namespace SnipasteOcrHelper.Tests;
@@ -55,6 +56,27 @@ public sealed class OcrQueueTests
         Assert.Equal("next text", clipboard.LastText);
         Assert.Contains(statuses, s => s.Status == AppStatus.Error);
         Assert.Contains(statuses, s => s.Status == AppStatus.LastSuccess);
+    }
+
+    [Fact]
+    public async Task DrainAsync_RecordsSuccessNoTextAndFailureInHistory()
+    {
+        var ocr = new SequenceOcrProvider(
+            OcrResult.Success("recognized text"),
+            OcrResult.Success("   "),
+            OcrResult.Failure("bad image"));
+        var history = new OcrHistoryStore();
+        var queue = new OcrQueue(() => ocr, new FakeClipboardWriter(), _ => { }, history);
+
+        await queue.EnqueueAsync("success.png");
+        await queue.EnqueueAsync("empty.png");
+        await queue.EnqueueAsync("failed.png");
+        await queue.DrainAsync();
+
+        var entries = history.Snapshot();
+        Assert.Contains(entries, entry => entry.FileName == "success.png" && entry.Status == OcrHistoryStatus.Success && entry.Detail == "recognized text");
+        Assert.Contains(entries, entry => entry.FileName == "empty.png" && entry.Status == OcrHistoryStatus.NoText);
+        Assert.Contains(entries, entry => entry.FileName == "failed.png" && entry.Status == OcrHistoryStatus.Failed && entry.Detail == "bad image");
     }
 
     private sealed class FakeOcrProvider : IImageOcrProvider

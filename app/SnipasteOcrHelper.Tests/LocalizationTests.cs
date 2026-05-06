@@ -14,7 +14,10 @@ public sealed class LocalizationTests
             CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
 
             Assert.Equal("Open Settings", Resources.TrayOpenSettings);
+            Assert.Equal("OCR History", Resources.TrayOcrHistory);
             Assert.Equal("Snipaste OCR Helper Settings", Resources.SettingsTitle);
+            Assert.Equal("Recognition History", Resources.HistoryTitle);
+            Assert.Equal("Success", Resources.HistoryStatusSuccess);
         }
         finally
         {
@@ -31,7 +34,10 @@ public sealed class LocalizationTests
             CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("zh-CN");
 
             Assert.Equal("打开设置", Resources.TrayOpenSettings);
+            Assert.Equal("识别记录", Resources.TrayOcrHistory);
             Assert.Equal("Snipaste OCR Helper 设置", Resources.SettingsTitle);
+            Assert.Equal("识别记录", Resources.HistoryTitle);
+            Assert.Equal("成功", Resources.HistoryStatusSuccess);
         }
         finally
         {
@@ -64,12 +70,33 @@ public sealed class LocalizationTests
         var appHost = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Platform", "AppHost.cs"));
 
         Assert.DoesNotContain("Open Settings", tray);
+        Assert.Contains("TrayOcrHistory", tray);
+        Assert.DoesNotContain("OCR History", tray);
         Assert.DoesNotContain("Pause Monitoring", tray);
         Assert.DoesNotContain("Resume Monitoring", tray);
         Assert.DoesNotContain("\"Exit\"", tray);
+        Assert.Contains("OpenHistory", appHost);
         Assert.DoesNotContain("Configure watch directory", appHost);
         Assert.DoesNotContain("Watch directory does not exist", appHost);
         Assert.DoesNotContain("Monitoring paused", appHost);
+    }
+
+    [Fact]
+    public void HistoryWindow_DoesNotKeepHardCodedEnglishUiText()
+    {
+        var root = FindRepositoryRoot();
+        var xaml = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "History", "OcrHistoryWindow.xaml"));
+        var source = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "History", "OcrHistoryWindow.xaml.cs"));
+
+        Assert.DoesNotContain("Recognition History", xaml);
+        Assert.DoesNotContain("Header=\"Time\"", xaml);
+        Assert.DoesNotContain("Header=\"File\"", xaml);
+        Assert.DoesNotContain("Header=\"Status\"", xaml);
+        Assert.DoesNotContain("Header=\"Detail\"", xaml);
+        Assert.DoesNotContain("No recognition records yet.", xaml);
+        Assert.Contains("HistoryStatusSuccess", source);
+        Assert.Contains("HistoryStatusNoText", source);
+        Assert.Contains("HistoryStatusFailed", source);
     }
 
     private static string FindRepositoryRoot()

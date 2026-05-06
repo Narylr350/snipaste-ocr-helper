@@ -1,5 +1,6 @@
 using System.IO;
 using SnipasteOcrHelper.Core;
+using SnipasteOcrHelper.History;
 
 namespace SnipasteOcrHelper.Queue;
 
@@ -8,6 +9,7 @@ public sealed class OcrQueue
     private readonly Func<IImageOcrProvider> ocrProviderFactory;
     private readonly IClipboardWriter clipboardWriter;
     private readonly Action<AppStatusUpdate> publishStatus;
+    private readonly OcrHistoryStore? history;
     private readonly Queue<string> pending = new();
     private readonly HashSet<string> knownPaths = new(StringComparer.OrdinalIgnoreCase);
     private bool processing;
@@ -15,11 +17,13 @@ public sealed class OcrQueue
     public OcrQueue(
         Func<IImageOcrProvider> ocrProviderFactory,
         IClipboardWriter clipboardWriter,
-        Action<AppStatusUpdate> publishStatus)
+        Action<AppStatusUpdate> publishStatus,
+        OcrHistoryStore? history = null)
     {
         this.ocrProviderFactory = ocrProviderFactory;
         this.clipboardWriter = clipboardWriter;
         this.publishStatus = publishStatus;
+        this.history = history;
     }
 
     public Task EnqueueAsync(string path, CancellationToken cancellationToken = default)
@@ -51,23 +55,29 @@ public sealed class OcrQueue
 
                 try
                 {
+                    var fileName = Path.GetFileName(path);
                     var result = await ocrProviderFactory().RecognizeAsync(path, cancellationToken);
                     if (!result.IsSuccess)
                     {
-                        publishStatus(new AppStatusUpdate(AppStatus.Error, result.Error));
+                        var error = result.Error ?? string.Empty;
+                        history?.Add(new OcrHistoryEntry(DateTimeOffset.UtcNow, fileName, OcrHistoryStatus.Failed, error));
+                        publishStatus(new AppStatusUpdate(AppStatus.Error, error));
                     }
                     else if (string.IsNullOrWhiteSpace(result.Text))
                     {
-                        publishStatus(new AppStatusUpdate(AppStatus.NoText, Path.GetFileName(path)));
+                        history?.Add(new OcrHistoryEntry(DateTimeOffset.UtcNow, fileName, OcrHistoryStatus.NoText, string.Empty));
+                        publishStatus(new AppStatusUpdate(AppStatus.NoText, fileName));
                     }
                     else
                     {
                         await clipboardWriter.WriteTextAsync(result.Text, cancellationToken);
-                        publishStatus(new AppStatusUpdate(AppStatus.LastSuccess, Path.GetFileName(path)));
+                        history?.Add(new OcrHistoryEntry(DateTimeOffset.UtcNow, fileName, OcrHistoryStatus.Success, result.Text));
+                        publishStatus(new AppStatusUpdate(AppStatus.LastSuccess, fileName));
                     }
                 }
                 catch (Exception ex) when (ex is not OperationCanceledException)
                 {
+                    history?.Add(new OcrHistoryEntry(DateTimeOffset.UtcNow, Path.GetFileName(path), OcrHistoryStatus.Failed, ex.Message));
                     publishStatus(new AppStatusUpdate(AppStatus.Error, ex.Message));
                 }
                 finally

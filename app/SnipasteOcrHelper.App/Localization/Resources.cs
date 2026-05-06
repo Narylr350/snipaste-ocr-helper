@@ -9,6 +9,7 @@ public static class Resources
 
     public static string AppName => GetString(nameof(AppName));
     public static string TrayOpenSettings => GetString(nameof(TrayOpenSettings));
+    public static string TrayOcrHistory => GetString(nameof(TrayOcrHistory));
     public static string TrayPauseMonitoring => GetString(nameof(TrayPauseMonitoring));
     public static string TrayResumeMonitoring => GetString(nameof(TrayResumeMonitoring));
     public static string TrayExit => GetString(nameof(TrayExit));
@@ -22,6 +23,15 @@ public static class Resources
     public static string SettingsBrowse => GetString(nameof(SettingsBrowse));
     public static string SettingsSave => GetString(nameof(SettingsSave));
     public static string SettingsCancel => GetString(nameof(SettingsCancel));
+    public static string HistoryTitle => GetString(nameof(HistoryTitle));
+    public static string HistoryEmpty => GetString(nameof(HistoryEmpty));
+    public static string HistoryTimeColumn => GetString(nameof(HistoryTimeColumn));
+    public static string HistoryFileColumn => GetString(nameof(HistoryFileColumn));
+    public static string HistoryStatusColumn => GetString(nameof(HistoryStatusColumn));
+    public static string HistoryDetailColumn => GetString(nameof(HistoryDetailColumn));
+    public static string HistoryStatusSuccess => GetString(nameof(HistoryStatusSuccess));
+    public static string HistoryStatusNoText => GetString(nameof(HistoryStatusNoText));
+    public static string HistoryStatusFailed => GetString(nameof(HistoryStatusFailed));
     public static string StatusNeedsSetup => GetString(nameof(StatusNeedsSetup));
     public static string StatusRunning => GetString(nameof(StatusRunning));
     public static string StatusPaused => GetString(nameof(StatusPaused));
