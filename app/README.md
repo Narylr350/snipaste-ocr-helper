@@ -2,14 +2,32 @@
 
 ## Role
 
-Primary application root for the product.
+WPF tray application for the vertical MVP.
 
-## Suggested Stack
+## Projects
 
-C# / .NET desktop application, with WPF recommended for the first tray-and-settings implementation.
+- `SnipasteOcrHelper.App`: Windows tray app targeting `net8.0-windows`.
+- `SnipasteOcrHelper.Tests`: xUnit tests for settings, watcher primitives, queue orchestration, adapters, startup toggle, and logging.
 
-## Next Steps
+## Build and test
 
-- initialize the .NET solution and WPF application
-- define module boundaries for watcher, OCR, queue, settings, tray, and clipboard integration
-- add build and test setup once the runtime project exists
+```bash
+dotnet test SnipasteOcrHelper.sln
+dotnet build SnipasteOcrHelper.sln -c Release
+```
+
+## Publish
+
+The MVP publish target is a framework-dependent win-x64 single-file app:
+
+```bash
+dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --source https://api.nuget.org/v3/index.json
+```
+
+Output path:
+
+```text
+app/SnipasteOcrHelper.App/bin/Release/net8.0-windows/win-x64/publish/SnipasteOcrHelper.App.exe
+```
+
+The target machine needs the .NET 8 Windows Desktop runtime and Tesseract tessdata files for `eng+chi_sim`.

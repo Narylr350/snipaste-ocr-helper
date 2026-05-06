@@ -4,43 +4,41 @@ Use this directory for validation notes that should survive across AI sessions.
 
 ## Testing Strategy
 
-单元测试覆盖文件去重、防抖策略、OCR provider 结果处理和剪贴板适配层；手动验证 Snipaste 保存新截图后自动 OCR、连续截图不漏不重复、大图写入未完成时不提前 OCR、OCR 失败后队列继续工作、暂停恢复监听生效、设置目录变更后监听切换生效。
+Automated coverage focuses on service boundaries that can run without desktop interaction: settings persistence, file filtering and stability probing, OCR queue behavior, clipboard adapter delegation, startup registry writes, and logging.
 
 ## Standard Checks
 
-- Define the concrete test, lint, typecheck, and build commands when the runtime is initialized.
-- Keep each command here once it exists so future AI sessions can verify work without rediscovery.
+Run from the repository root:
+
+```bash
+dotnet test SnipasteOcrHelper.sln
+dotnet build SnipasteOcrHelper.sln -c Release
+dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --source https://api.nuget.org/v3/index.json
+```
 
 ## Manual Checks
 
-Use these product workflows as manual validation targets until automated coverage exists:
+Use these product workflows as manual validation targets:
 
-- 设置监听目录并启动后台监听
-- Snipaste 保存新截图后自动 OCR 并覆盖剪贴板文本
-- 连续截图时按队列去重处理
-- 暂停和恢复目录监听
-- 切换 OCR provider 并保存配置
-- OCR 失败后记录日志并继续处理后续图片
+- First launch with no watch directory opens the settings window.
+- Saving a valid watch directory starts monitoring and updates tray status.
+- Snipaste saving a new supported image triggers OCR after the file becomes stable.
+- Non-empty OCR output overwrites the clipboard.
+- Empty OCR output leaves the clipboard unchanged and reports `NoText`.
+- OCR failure logs an error and the queue continues processing later images.
+- Tray pause/resume stops and restarts monitoring.
+- Start-with-Windows writes/removes the current-user Run registry value.
 
 ## Recent Evidence
 
-- No implementation verification has been recorded yet. Add dated evidence here after the first build, test, or manual validation run.
+- 2026-05-06: `dotnet test SnipasteOcrHelper.sln` passed: 21 tests, 0 failures.
+- 2026-05-06: `dotnet build SnipasteOcrHelper.sln -c Release` passed: 0 warnings, 0 errors.
+- 2026-05-06: `dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true --source https://api.nuget.org/v3/index.json` succeeded and produced `SnipasteOcrHelper.App.exe`.
 
 ## Known Gaps
 
-Risks and gaps to account for:
-
-- 云 OCR 准确率高但涉及隐私、费用和网络失败
-- 自动覆盖剪贴板可能覆盖用户刚复制的其他内容
-- 文件监听可能遇到写入未完成、重复事件和批量截图抖动
-- 后台常驻需要控制 CPU、内存和通知打扰
-- API key 存储需要避免明文暴露
-
-Open validation questions:
-
-- 首个云 OCR provider 选哪家
-- API key 是否需要接入 Windows Credential Manager
-- OCR 失败是否弹通知还是只写日志
-- 后续是否加入 OCR 历史与手动重试界面
+- Desktop/tray behavior still needs manual validation on Windows with a real Snipaste auto-save directory.
+- End-to-end OCR still needs manual validation with installed `eng` and `chi_sim` tessdata files.
+- The MVP uses local Tesseract only; cloud OCR/provider switching remains future scope.
 
 Keep task-specific detail in `docs/tasks/<module>/`. Keep durable validation rules and cross-module evidence here.

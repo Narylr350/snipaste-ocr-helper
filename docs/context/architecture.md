@@ -6,17 +6,19 @@
 
 ## Application Boundaries
 
-- `app` owns the Windows desktop application boundary.
-- The first implementation should initialize this as a C#/.NET WPF tray application with settings UI.
+- `app/SnipasteOcrHelper.App` owns the Windows desktop application boundary.
+- `app/SnipasteOcrHelper.Tests` owns automated tests for app-internal service boundaries.
+- The MVP is a C#/.NET WPF tray application with settings UI and Windows Forms `NotifyIcon` integration.
 
 ## Core Workflow Boundaries
 
-- 设置监听目录并启动后台监听
-- Snipaste 保存新截图后自动 OCR 并覆盖剪贴板文本
-- 连续截图时按队列去重处理
-- 暂停和恢复目录监听
-- 切换 OCR provider 并保存配置
-- OCR 失败后记录日志并继续处理后续图片
+- Settings: persist watch directory, tessdata directory, OCR language, monitoring flag, and Start-with-Windows flag.
+- Watching: monitor one configured screenshot directory, filter supported images, and wait for stable/readable files.
+- Queue: deduplicate paths and process OCR jobs serially.
+- OCR: local Tesseract provider behind `IImageOcrProvider`.
+- Clipboard: write non-empty OCR text through `IClipboardWriter`.
+- Tray: expose Open Settings, Pause/Resume Monitoring, Exit, and coarse status updates.
+- Platform: app composition, file logging, and current-user startup registry integration.
 
 ## Shared Directories
 
@@ -24,26 +26,24 @@
 
 ## Integration Boundaries
 
-Snipaste 只通过自动保存目录集成，不调用内部 API；OCR provider 分为本地 provider 与云 provider，云 provider 只有用户显式配置 API key 后才上传图片；剪贴板边界为 OCR 成功后自动覆盖为文本。
+Snipaste is integrated only through its auto-save directory. OCR is isolated behind a provider interface; the MVP ships local Tesseract only. Clipboard integration is isolated behind an adapter and overwrites text only after successful non-empty OCR output. Startup integration writes the current executable path to the current-user Run registry key when enabled.
 
 ## Architecture Risks
 
-- 云 OCR 准确率高但涉及隐私、费用和网络失败
-- 自动覆盖剪贴板可能覆盖用户刚复制的其他内容
-- 文件监听可能遇到写入未完成、重复事件和批量截图抖动
-- 后台常驻需要控制 CPU、内存和通知打扰
-- API key 存储需要避免明文暴露
+- Automatically overwriting clipboard can replace user-copied content.
+- File watching can encounter partial writes, duplicate events, and bursty screenshot saves.
+- Tesseract requires correctly installed tessdata files for `eng+chi_sim`.
+- NotifyIcon/tray behavior and clipboard writes require manual desktop validation.
 
 ## Open Architecture Questions
 
-- 首个云 OCR provider 选哪家
-- API key 是否需要接入 Windows Credential Manager
-- OCR 失败是否弹通知还是只写日志
-- 后续是否加入 OCR 历史与手动重试界面
+- Whether local Tesseract accuracy is sufficient before adding cloud OCR.
+- Whether OCR failures should become notifications or remain log/status only.
+- Whether later versions need OCR history and manual retry.
 
 ## Boundary Rules
 
 - Keep business rules inside the app or service that owns them.
-- Prefer shared packages for stable contracts, types, or utilities.
+- Prefer internal interfaces only at real integration boundaries: OCR, clipboard, startup registry, settings persistence, and watcher callbacks.
 - Do not create a new app unless the user-facing or operational boundary is real.
 - Keep docs synchronized when structure or boundaries change.

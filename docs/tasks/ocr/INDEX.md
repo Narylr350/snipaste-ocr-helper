@@ -2,59 +2,49 @@
 
 ## Current Status
 
-`ocr` is part of the initial `snipaste-ocr-helper` scaffold.
+`ocr` now has a local Tesseract MVP adapter behind `IImageOcrProvider`, configured by settings for tessdata directory and `eng+chi_sim` language.
 
 ## Active Scope
 
-用户可设置 Snipaste 自动保存目录；工具后台监听新增图片；等待图片文件稳定后加入 OCR 队列；OCR 成功后自动将文本写入剪贴板；托盘可显示运行状态并暂停或恢复；设置中可选择 OCR provider 并预留云 OCR API key 配置；保留基础日志用于排查失败。
+Use local Tesseract OCR for each stable image and return either trimmed recognized text or a failure result that can be logged and surfaced through tray status.
 
 ## North Star Contribution
 
-This domain supports the core flow:
-
-用户设置 Snipaste 自动保存目录；工具监听新截图；等待文件写入稳定；执行 OCR；将识别文本自动写入剪贴板；托盘显示状态并允许暂停恢复。
+This domain turns stable screenshot image paths into text for clipboard automation while isolating OCR provider details from the queue and app shell.
 
 ## Implemented Features
 
-- No implementation has shipped yet. This file records the intended domain state for the first build.
+- `IImageOcrProvider` boundary.
+- `OcrResult` success/failure result model.
+- `TesseractOcrProvider` using `TesseractOCR` package version `5.5.2`.
+- Default OCR language setting `eng+chi_sim`.
+- Failure wrapping for OCR exceptions without stopping the queue.
 
 ## Pending Features
 
-Key workflows to implement or validate:
-
-- 设置监听目录并启动后台监听
-- Snipaste 保存新截图后自动 OCR 并覆盖剪贴板文本
-- 连续截图时按队列去重处理
-- 暂停和恢复目录监听
-- 切换 OCR provider 并保存配置
-- OCR 失败后记录日志并继续处理后续图片
+- Manual validation with real tessdata files and screenshots containing Chinese/English text.
+- Future provider selection/cloud OCR is outside the current MVP.
 
 ## Last Effective Design
 
 - MVP design: `docs/tasks/platform/2026-05-06-vertical-mvp-design.md`
+- Implementation plan: `docs/tasks/platform/2026-05-06-vertical-mvp-implementation-plan.md`
 - Product context: `docs/context/project-overview.md`
 - Architecture context: `docs/context/architecture.md`
-- Product intent: `docs/product/idea.md`
 
 ## Validation
 
-单元测试覆盖文件去重、防抖策略、OCR provider 结果处理和剪贴板适配层；手动验证 Snipaste 保存新截图后自动 OCR、连续截图不漏不重复、大图写入未完成时不提前 OCR、OCR 失败后队列继续工作、暂停恢复监听生效、设置目录变更后监听切换生效。
+- 2026-05-06: adapter tests passed as part of `dotnet test SnipasteOcrHelper.sln`.
+- 2026-05-06: full solution test run passed: 21 tests, 0 failures.
 
 ## Known Issues
 
-- 云 OCR 准确率高但涉及隐私、费用和网络失败
-- 自动覆盖剪贴板可能覆盖用户刚复制的其他内容
-- 文件监听可能遇到写入未完成、重复事件和批量截图抖动
-- 后台常驻需要控制 CPU、内存和通知打扰
-- API key 存储需要避免明文暴露
+- The app requires the user to configure a tessdata directory containing the requested languages.
+- OCR accuracy and performance have not yet been manually validated with real screenshots.
 
 ## Next Useful Moves
 
-Open questions:
-
-- 首个云 OCR provider 选哪家
-- API key 是否需要接入 Windows Credential Manager
-- OCR 失败是否弹通知还是只写日志
-- 后续是否加入 OCR 历史与手动重试界面
+- Validate `eng+chi_sim` recognition with a small known image set.
+- Decide later whether provider switching is still needed after local Tesseract MVP feedback.
 
 Before closing work in this module, update `Current Status`, `Implemented Features`, `Validation`, `Known Issues`, and `Next Useful Moves` if any of them changed.

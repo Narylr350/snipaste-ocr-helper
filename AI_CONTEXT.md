@@ -10,7 +10,7 @@ This file should stay compressed: summarize the project and point to canonical d
 
 ## Project
 
-`snipaste-ocr-helper` is currently structured as `single-app`.
+`snipaste-ocr-helper` is structured as `single-app`.
 
 Working product summary:
 
@@ -19,7 +19,7 @@ Working product summary:
 - core flow: 用户设置 Snipaste 自动保存目录；工具监听新截图；等待文件写入稳定；执行 OCR；将识别文本自动写入剪贴板；托盘显示状态并允许暂停恢复。
 
 Active application roots:
-- `app`: Main application
+- `app`: WPF tray application and xUnit test project.
 
 Primary domains:
 - `platform`
@@ -29,6 +29,12 @@ Primary domains:
 - `tray`
 - `settings`
 - `queue`
+
+Current implementation snapshot:
+- `app/SnipasteOcrHelper.App`: `net8.0-windows` WPF tray app with Windows Forms `NotifyIcon`.
+- `app/SnipasteOcrHelper.Tests`: xUnit tests for settings, watcher primitives, queue, adapters, startup, and logging.
+- OCR MVP: local Tesseract via `TesseractOCR` package, language `eng+chi_sim`, tessdata path configured by user.
+- Publish MVP: framework-dependent win-x64 single-file app; see `app/README.md` and `docs/testing/README.md`.
 
 ## Required Reading Order
 
@@ -53,6 +59,7 @@ For any non-trivial task, read in this order before implementation:
 - stack decisions and runtime baseline: `docs/context/tech-stack.md`
 - engineering contracts: `docs/engineering/`
 - current module delivery state: the affected `docs/tasks/<module>/INDEX.md` files
+- validation evidence: `docs/testing/`
 - module and work records: `docs/tasks/`
 
 ## Why This Layering Exists
@@ -80,6 +87,7 @@ For any non-trivial task, read in this order before implementation:
   - stable project context -> `docs/context/`
   - product intent -> `docs/product/`
   - engineering contracts -> `docs/engineering/`
+  - validation evidence -> `docs/testing/`
   - task and module working records -> `docs/tasks/`
 - When a generic skill suggests a different artifact layout, reinterpret that guidance so outputs land in the canonical paths above.
 
