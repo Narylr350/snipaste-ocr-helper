@@ -30,4 +30,4 @@ dotnet publish app/SnipasteOcrHelper.App/SnipasteOcrHelper.App.csproj -c Release
 app/SnipasteOcrHelper.App/bin/Release/net8.0-windows/win-x64/publish/SnipasteOcrHelper.App.exe
 ```
 
-目标机器需要安装 .NET 8 Windows Desktop Runtime。exe 包含内置应用图标，`eng` 和 `chi_sim` tessdata 由安装器安装到应用安装目录下的 `tessdata` 文件夹。
+目标机器需要安装 .NET 8 Windows Desktop Runtime。exe 包含内置应用图标，Tesseract tessdata 可在设置窗口下载到 `%APPDATA%\SnipasteOcrHelper\tessdata`。

@@ -14,7 +14,7 @@ public sealed class AppLogger : IAppLogger
 
     public static AppLogger CreateDefault()
     {
-        var dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "SnipasteOcrHelper", "logs");
+        var dir = Settings.DefaultPaths.LogDirectory;
         Directory.CreateDirectory(dir);
         return new AppLogger(Path.Combine(dir, "app.log"));
     }

@@ -5,10 +5,12 @@ namespace SnipasteOcrHelper.Tests;
 public sealed class TessDataPackagingTests
 {
     [Fact]
-    public void AppSettings_DefaultsTessdataDirectoryToExistingTessdataDirectory()
+    public void AppSettings_DefaultsTessdataDirectoryToAppDataTessdataDirectory()
     {
-        var root = FindRepositoryRoot();
-        var expected = Path.Combine(root, "app", "SnipasteOcrHelper.App", "Ocr", "tessdata");
+        var expected = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "SnipasteOcrHelper",
+            "tessdata");
 
         var settings = new AppSettings();
 
@@ -34,7 +36,7 @@ public sealed class TessDataPackagingTests
     }
 
     [Fact]
-    public void InnoSetupScript_InstallsAppAndTessdataUnderAppDirectory()
+    public void InnoSetupScript_InstallsAppWithoutBundledTessdata()
     {
         var root = FindRepositoryRoot();
         var script = File.ReadAllText(Path.Combine(root, "installer", "SnipasteOcrHelper.iss"));
@@ -42,8 +44,8 @@ public sealed class TessDataPackagingTests
         Assert.Contains("DefaultDirName={localappdata}\\Programs\\Snipaste OCR Helper", script);
         Assert.Contains("Source: \"..\\app\\SnipasteOcrHelper.App\\bin\\Release\\net8.0-windows\\win-x64\\publish\\*\"", script);
         Assert.Contains("DestDir: \"{app}\"", script);
-        Assert.Contains("Source: \"..\\app\\SnipasteOcrHelper.App\\Ocr\\tessdata\\*.traineddata\"", script);
-        Assert.Contains("DestDir: \"{app}\\tessdata\"", script);
+        Assert.DoesNotContain("Ocr\\tessdata\\*.traineddata", script);
+        Assert.DoesNotContain("DestDir: \"{app}\\tessdata\"", script);
     }
 
     private static string FindRepositoryRoot()

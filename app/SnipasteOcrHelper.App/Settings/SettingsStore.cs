@@ -35,10 +35,6 @@ public sealed class SettingsStore
         await using var stream = File.OpenRead(path);
         var settings = await JsonSerializer.DeserializeAsync<AppSettings>(stream, JsonOptions, cancellationToken)
             ?? new AppSettings();
-        if (HasEnglishTessdata(settings.TessDataDirectory))
-        {
-            return settings;
-        }
 
         return new AppSettings
         {
@@ -50,12 +46,6 @@ public sealed class SettingsStore
             OcrEngine = settings.OcrEngine,
             RapidOcrModelPack = settings.RapidOcrModelPack
         };
-    }
-
-    private static bool HasEnglishTessdata(string tessDataDirectory)
-    {
-        return !string.IsNullOrWhiteSpace(tessDataDirectory)
-            && File.Exists(Path.Combine(tessDataDirectory, "eng.traineddata"));
     }
 
     public async Task SaveAsync(AppSettings settings, CancellationToken cancellationToken = default)

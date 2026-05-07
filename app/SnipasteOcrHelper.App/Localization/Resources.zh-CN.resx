@@ -26,6 +26,16 @@
   <data name="SettingsRapidOcrModelMissing" xml:space="preserve"><value>未安装</value></data>
   <data name="SettingsRapidOcrModelDownloading" xml:space="preserve"><value>下载中</value></data>
   <data name="SettingsRapidOcrModelDownloadFailed" xml:space="preserve"><value>下载失败</value></data>
+  <data name="SettingsTesseractLanguages" xml:space="preserve"><value>Tesseract 语言</value></data>
+  <data name="SettingsTesseractLanguageStatus" xml:space="preserve"><value>语言包：{0}</value></data>
+  <data name="SettingsTesseractLanguageDownload" xml:space="preserve"><value>下载语言</value></data>
+  <data name="SettingsSectionScreenshotSource" xml:space="preserve"><value>截图来源</value></data>
+  <data name="SettingsSectionOcrSettings" xml:space="preserve"><value>OCR 设置</value></data>
+  <data name="SettingsSectionTesseract" xml:space="preserve"><value>Tesseract</value></data>
+  <data name="SettingsSectionRapidOcr" xml:space="preserve"><value>RapidOCR</value></data>
+  <data name="SettingsSectionPostRecognition" xml:space="preserve"><value>识别后处理</value></data>
+  <data name="SettingsSectionSystemMaintenance" xml:space="preserve"><value>系统 / 维护</value></data>
+  <data name="SettingsOpenLogFolder" xml:space="preserve"><value>打开日志文件夹</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>开机启动</value></data>
   <data name="SettingsImageDeleteMode" xml:space="preserve"><value>识别后处理图片</value></data>
   <data name="SettingsImageDeleteNever" xml:space="preserve"><value>不删除</value></data>

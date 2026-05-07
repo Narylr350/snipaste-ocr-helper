@@ -26,6 +26,16 @@
   <data name="SettingsRapidOcrModelMissing" xml:space="preserve"><value>Not installed</value></data>
   <data name="SettingsRapidOcrModelDownloading" xml:space="preserve"><value>Downloading</value></data>
   <data name="SettingsRapidOcrModelDownloadFailed" xml:space="preserve"><value>Download failed</value></data>
+  <data name="SettingsTesseractLanguages" xml:space="preserve"><value>Tesseract languages</value></data>
+  <data name="SettingsTesseractLanguageStatus" xml:space="preserve"><value>Language packs: {0}</value></data>
+  <data name="SettingsTesseractLanguageDownload" xml:space="preserve"><value>Download languages</value></data>
+  <data name="SettingsSectionScreenshotSource" xml:space="preserve"><value>Screenshot source</value></data>
+  <data name="SettingsSectionOcrSettings" xml:space="preserve"><value>OCR settings</value></data>
+  <data name="SettingsSectionTesseract" xml:space="preserve"><value>Tesseract</value></data>
+  <data name="SettingsSectionRapidOcr" xml:space="preserve"><value>RapidOCR</value></data>
+  <data name="SettingsSectionPostRecognition" xml:space="preserve"><value>Post-recognition</value></data>
+  <data name="SettingsSectionSystemMaintenance" xml:space="preserve"><value>System / Maintenance</value></data>
+  <data name="SettingsOpenLogFolder" xml:space="preserve"><value>Open log folder</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
   <data name="SettingsImageDeleteMode" xml:space="preserve"><value>After recognition</value></data>
   <data name="SettingsImageDeleteNever" xml:space="preserve"><value>Do not delete</value></data>

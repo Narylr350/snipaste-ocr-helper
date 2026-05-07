@@ -72,6 +72,7 @@ public sealed class AppHost : IDisposable
         var window = new SettingsWindow(
             settings,
             new RapidOcrModelManager(DefaultPaths.RapidOcrModelDirectory, settings.RapidOcrModelPack),
+            new TesseractLanguagePackManager(DefaultPaths.TessDataDirectory, settings.OcrLanguage),
             logger.Error);
         if (window.ShowDialog() == true && window.SavedSettings is not null)
         {

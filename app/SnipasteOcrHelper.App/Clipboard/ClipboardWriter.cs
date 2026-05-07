@@ -8,7 +8,7 @@ public sealed class ClipboardWriter : IClipboardWriter
     private readonly Func<string, Task> writeText;
 
     public ClipboardWriter()
-        : this(text => System.Windows.Application.Current.Dispatcher.InvokeAsync(() => System.Windows.Clipboard.SetText(text)).Task)
+        : this(text => System.Windows.Application.Current.Dispatcher.InvokeAsync(() => System.Windows.Forms.Clipboard.SetDataObject(text, true, 20, 300)).Task)
     {
     }
 
@@ -19,7 +19,7 @@ public sealed class ClipboardWriter : IClipboardWriter
 
     public async Task WriteTextAsync(string text, CancellationToken cancellationToken = default)
     {
-        for (var attempt = 0; attempt < 10; attempt++)
+        for (var attempt = 0; attempt < 20; attempt++)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try
@@ -27,9 +27,9 @@ public sealed class ClipboardWriter : IClipboardWriter
                 await writeText(text);
                 return;
             }
-            catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x800401D0) && attempt < 9)
+            catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x800401D0) && attempt < 19)
             {
-                await Task.Delay(200, cancellationToken);
+                await Task.Delay(300, cancellationToken);
             }
         }
     }

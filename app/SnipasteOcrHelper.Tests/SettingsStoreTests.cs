@@ -67,6 +67,31 @@ public sealed class SettingsStoreTests
     }
 
     [Fact]
+    public async Task LoadAsync_UsesDefaultTessdataDirectory_WhenSavedValueExistsOutsideDefaultDirectory()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(dir);
+        var customTessdata = Path.Combine(dir, "custom-tessdata");
+        Directory.CreateDirectory(customTessdata);
+        File.WriteAllText(Path.Combine(customTessdata, "eng.traineddata"), "eng");
+        var path = Path.Combine(dir, "settings.json");
+        await File.WriteAllTextAsync(path, $$"""
+            {
+              "WatchDirectory": "C:\\Screenshots",
+              "TessDataDirectory": "{{customTessdata.Replace("\\", "\\\\")}}",
+              "OcrLanguage": "eng+chi_sim",
+              "MonitoringEnabled": true,
+              "StartWithWindows": false
+            }
+            """);
+        var store = new SettingsStore(path);
+
+        var settings = await store.LoadAsync();
+
+        Assert.Equal(DefaultPaths.TessDataDirectory, settings.TessDataDirectory);
+    }
+
+    [Fact]
     public async Task SaveAsync_ThenLoadAsync_RoundTripsSettings()
     {
         var dir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));

@@ -29,6 +29,16 @@ public static class Resources
     public static string SettingsRapidOcrModelMissing => GetString(nameof(SettingsRapidOcrModelMissing));
     public static string SettingsRapidOcrModelDownloading => GetString(nameof(SettingsRapidOcrModelDownloading));
     public static string SettingsRapidOcrModelDownloadFailed => GetString(nameof(SettingsRapidOcrModelDownloadFailed));
+    public static string SettingsTesseractLanguages => GetString(nameof(SettingsTesseractLanguages));
+    public static string SettingsTesseractLanguageStatus => GetString(nameof(SettingsTesseractLanguageStatus));
+    public static string SettingsTesseractLanguageDownload => GetString(nameof(SettingsTesseractLanguageDownload));
+    public static string SettingsSectionScreenshotSource => GetString(nameof(SettingsSectionScreenshotSource));
+    public static string SettingsSectionOcrSettings => GetString(nameof(SettingsSectionOcrSettings));
+    public static string SettingsSectionTesseract => GetString(nameof(SettingsSectionTesseract));
+    public static string SettingsSectionRapidOcr => GetString(nameof(SettingsSectionRapidOcr));
+    public static string SettingsSectionPostRecognition => GetString(nameof(SettingsSectionPostRecognition));
+    public static string SettingsSectionSystemMaintenance => GetString(nameof(SettingsSectionSystemMaintenance));
+    public static string SettingsOpenLogFolder => GetString(nameof(SettingsOpenLogFolder));
     public static string SettingsStartWithWindows => GetString(nameof(SettingsStartWithWindows));
     public static string SettingsImageDeleteMode => GetString(nameof(SettingsImageDeleteMode));
     public static string SettingsImageDeleteNever => GetString(nameof(SettingsImageDeleteNever));
