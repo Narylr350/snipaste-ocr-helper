@@ -35,7 +35,7 @@ public sealed class SettingsStore
         await using var stream = File.OpenRead(path);
         var settings = await JsonSerializer.DeserializeAsync<AppSettings>(stream, JsonOptions, cancellationToken)
             ?? new AppSettings();
-        if (!string.IsNullOrWhiteSpace(settings.TessDataDirectory))
+        if (HasEnglishTessdata(settings.TessDataDirectory))
         {
             return settings;
         }
@@ -46,8 +46,16 @@ public sealed class SettingsStore
             OcrLanguage = settings.OcrLanguage,
             MonitoringEnabled = settings.MonitoringEnabled,
             StartWithWindows = settings.StartWithWindows,
-            ImageDeleteMode = settings.ImageDeleteMode
+            ImageDeleteMode = settings.ImageDeleteMode,
+            OcrEngine = settings.OcrEngine,
+            RapidOcrModelPack = settings.RapidOcrModelPack
         };
+    }
+
+    private static bool HasEnglishTessdata(string tessDataDirectory)
+    {
+        return !string.IsNullOrWhiteSpace(tessDataDirectory)
+            && File.Exists(Path.Combine(tessDataDirectory, "eng.traineddata"));
     }
 
     public async Task SaveAsync(AppSettings settings, CancellationToken cancellationToken = default)

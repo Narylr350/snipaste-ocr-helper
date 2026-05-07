@@ -5,9 +5,10 @@ namespace SnipasteOcrHelper.Tests;
 public sealed class TessDataPackagingTests
 {
     [Fact]
-    public void AppSettings_DefaultsTessdataDirectoryToAppBaseDirectory()
+    public void AppSettings_DefaultsTessdataDirectoryToExistingTessdataDirectory()
     {
-        var expected = Path.Combine(AppContext.BaseDirectory, "tessdata");
+        var root = FindRepositoryRoot();
+        var expected = Path.Combine(root, "app", "SnipasteOcrHelper.App", "Ocr", "tessdata");
 
         var settings = new AppSettings();
 

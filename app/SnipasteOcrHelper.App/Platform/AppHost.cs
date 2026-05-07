@@ -31,8 +31,11 @@ public sealed class AppHost : IDisposable
         this.startupManager = startupManager;
         this.logger = logger;
         var clipboard = new ClipboardWriter();
+        var providerFactory = new OcrProviderFactory(
+            () => settings,
+            currentSettings => new RapidOcrProvider(DefaultPaths.RapidOcrModelDirectory, currentSettings.RapidOcrModelPack));
         queue = new OcrQueue(
-            () => new TesseractOcrProvider(settings.TessDataDirectory, settings.OcrLanguage),
+            providerFactory.Create,
             clipboard,
             UpdateStatus,
             history,
@@ -66,7 +69,10 @@ public sealed class AppHost : IDisposable
 
     private void OpenSettings()
     {
-        var window = new SettingsWindow(settings);
+        var window = new SettingsWindow(
+            settings,
+            new RapidOcrModelManager(DefaultPaths.RapidOcrModelDirectory, settings.RapidOcrModelPack),
+            logger.Error);
         if (window.ShowDialog() == true && window.SavedSettings is not null)
         {
             settings = window.SavedSettings;

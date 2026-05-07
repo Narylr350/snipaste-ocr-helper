@@ -8,4 +8,6 @@ public sealed class AppSettings
     public bool MonitoringEnabled { get; init; } = true;
     public bool StartWithWindows { get; init; }
     public OcrImageDeleteMode ImageDeleteMode { get; init; } = OcrImageDeleteMode.Never;
+    public OcrEngineKind OcrEngine { get; init; } = OcrEngineKind.Tesseract;
+    public RapidOcrModelPack RapidOcrModelPack { get; init; } = RapidOcrModelPack.ChineseEnglish;
 }

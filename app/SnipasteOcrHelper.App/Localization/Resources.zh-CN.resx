@@ -16,6 +16,16 @@
   <data name="SettingsWatchDirectory" xml:space="preserve"><value>监控目录</value></data>
   <data name="SettingsTessDataDirectory" xml:space="preserve"><value>Tessdata 目录</value></data>
   <data name="SettingsOcrLanguage" xml:space="preserve"><value>OCR 语言</value></data>
+  <data name="SettingsOcrEngine" xml:space="preserve"><value>OCR 引擎</value></data>
+  <data name="SettingsOcrEngineTesseract" xml:space="preserve"><value>Tesseract</value></data>
+  <data name="SettingsOcrEngineRapidOcr" xml:space="preserve"><value>RapidOCR</value></data>
+  <data name="SettingsRapidOcrModels" xml:space="preserve"><value>RapidOCR 模型</value></data>
+  <data name="SettingsRapidOcrModelStatus" xml:space="preserve"><value>中英模型：{0}</value></data>
+  <data name="SettingsRapidOcrModelDownload" xml:space="preserve"><value>下载模型</value></data>
+  <data name="SettingsRapidOcrModelInstalled" xml:space="preserve"><value>已安装</value></data>
+  <data name="SettingsRapidOcrModelMissing" xml:space="preserve"><value>未安装</value></data>
+  <data name="SettingsRapidOcrModelDownloading" xml:space="preserve"><value>下载中</value></data>
+  <data name="SettingsRapidOcrModelDownloadFailed" xml:space="preserve"><value>下载失败</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>开机启动</value></data>
   <data name="SettingsImageDeleteMode" xml:space="preserve"><value>识别后处理图片</value></data>
   <data name="SettingsImageDeleteNever" xml:space="preserve"><value>不删除</value></data>

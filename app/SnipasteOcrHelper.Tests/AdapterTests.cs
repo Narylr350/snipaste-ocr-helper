@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using SnipasteOcrHelper.Clipboard;
 using SnipasteOcrHelper.Ocr;
 
@@ -31,5 +32,25 @@ public sealed class AdapterTests
         await writer.WriteTextAsync("recognized text");
 
         Assert.Equal("recognized text", captured);
+    }
+
+    [Fact]
+    public async Task WriteTextAsync_RetriesWhenClipboardIsBusy()
+    {
+        var attempts = 0;
+        var writer = new ClipboardWriter(_ =>
+        {
+            attempts++;
+            if (attempts == 1)
+            {
+                throw new COMException("OpenClipboard failed", unchecked((int)0x800401D0));
+            }
+
+            return Task.CompletedTask;
+        });
+
+        await writer.WriteTextAsync("recognized text");
+
+        Assert.Equal(2, attempts);
     }
 }

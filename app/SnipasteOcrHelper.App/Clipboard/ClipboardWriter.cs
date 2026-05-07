@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using SnipasteOcrHelper.Core;
 
 namespace SnipasteOcrHelper.Clipboard;
@@ -16,9 +17,20 @@ public sealed class ClipboardWriter : IClipboardWriter
         this.writeText = writeText;
     }
 
-    public Task WriteTextAsync(string text, CancellationToken cancellationToken = default)
+    public async Task WriteTextAsync(string text, CancellationToken cancellationToken = default)
     {
-        cancellationToken.ThrowIfCancellationRequested();
-        return writeText(text);
+        for (var attempt = 0; attempt < 3; attempt++)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            try
+            {
+                await writeText(text);
+                return;
+            }
+            catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x800401D0) && attempt < 2)
+            {
+                await Task.Delay(100, cancellationToken);
+            }
+        }
     }
 }

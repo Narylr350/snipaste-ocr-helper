@@ -16,6 +16,16 @@
   <data name="SettingsWatchDirectory" xml:space="preserve"><value>Watch directory</value></data>
   <data name="SettingsTessDataDirectory" xml:space="preserve"><value>Tessdata directory</value></data>
   <data name="SettingsOcrLanguage" xml:space="preserve"><value>OCR language</value></data>
+  <data name="SettingsOcrEngine" xml:space="preserve"><value>OCR engine</value></data>
+  <data name="SettingsOcrEngineTesseract" xml:space="preserve"><value>Tesseract</value></data>
+  <data name="SettingsOcrEngineRapidOcr" xml:space="preserve"><value>RapidOCR</value></data>
+  <data name="SettingsRapidOcrModels" xml:space="preserve"><value>RapidOCR models</value></data>
+  <data name="SettingsRapidOcrModelStatus" xml:space="preserve"><value>Chinese + English model: {0}</value></data>
+  <data name="SettingsRapidOcrModelDownload" xml:space="preserve"><value>Download model</value></data>
+  <data name="SettingsRapidOcrModelInstalled" xml:space="preserve"><value>Installed</value></data>
+  <data name="SettingsRapidOcrModelMissing" xml:space="preserve"><value>Not installed</value></data>
+  <data name="SettingsRapidOcrModelDownloading" xml:space="preserve"><value>Downloading</value></data>
+  <data name="SettingsRapidOcrModelDownloadFailed" xml:space="preserve"><value>Download failed</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
   <data name="SettingsImageDeleteMode" xml:space="preserve"><value>After recognition</value></data>
   <data name="SettingsImageDeleteNever" xml:space="preserve"><value>Do not delete</value></data>

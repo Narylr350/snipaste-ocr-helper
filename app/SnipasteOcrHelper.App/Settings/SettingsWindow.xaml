@@ -2,11 +2,12 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Width="560"
-        Height="360"
+        Height="400"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
   <Grid Margin="16">
     <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
@@ -27,23 +28,31 @@
     <TextBox Grid.Row="1" Grid.Column="1" x:Name="WatchDirectoryTextBox" Margin="0,0,8,8" />
     <Button Grid.Row="1" Grid.Column="2" x:Name="BrowseWatchDirectoryButton" Width="80" Margin="0,0,0,8" Click="BrowseWatchDirectory_Click" />
 
-    <TextBlock Grid.Row="2" Grid.Column="0" x:Name="TessDataDirectoryLabel" VerticalAlignment="Center" />
-    <TextBox Grid.Row="2" Grid.Column="1" x:Name="TessDataDirectoryTextBox" Margin="0,0,8,8" />
-    <Button Grid.Row="2" Grid.Column="2" x:Name="BrowseTessDataDirectoryButton" Width="80" Margin="0,0,0,8" Click="BrowseTessDataDirectory_Click" />
+    <TextBlock Grid.Row="2" Grid.Column="0" x:Name="OcrLanguageLabel" VerticalAlignment="Center" />
+    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="RapidOcrModelPackComboBox" Margin="0,0,0,8" SelectionChanged="RapidOcrModelPackComboBox_SelectionChanged" />
 
-    <TextBlock Grid.Row="3" Grid.Column="0" x:Name="OcrLanguageLabel" VerticalAlignment="Center" />
-    <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="eng+chi_sim" VerticalAlignment="Center" Margin="0,0,0,8" />
+    <TextBlock Grid.Row="3" Grid.Column="0" x:Name="OcrEngineLabel" VerticalAlignment="Top" />
+    <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,8">
+      <RadioButton x:Name="TesseractEngineRadioButton" Margin="0,0,0,4" />
+      <RadioButton x:Name="RapidOcrEngineRadioButton" />
+    </StackPanel>
 
-    <TextBlock Grid.Row="4" Grid.Column="0" x:Name="ImageDeleteModeLabel" VerticalAlignment="Top" />
-    <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,8">
+    <TextBlock Grid.Row="4" Grid.Column="0" x:Name="RapidOcrModelsLabel" VerticalAlignment="Center" />
+    <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,8">
+      <TextBlock x:Name="RapidOcrModelStatusTextBlock" VerticalAlignment="Center" Margin="0,0,8,0" />
+      <Button x:Name="RapidOcrModelDownloadButton" Width="110" Click="RapidOcrModelDownload_Click" />
+    </StackPanel>
+
+    <TextBlock Grid.Row="5" Grid.Column="0" x:Name="ImageDeleteModeLabel" VerticalAlignment="Top" />
+    <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,8">
       <RadioButton x:Name="ImageDeleteNeverRadioButton" Margin="0,0,0,4" />
       <RadioButton x:Name="ImageDeleteOnSuccessRadioButton" Margin="0,0,0,4" />
       <RadioButton x:Name="ImageDeleteAlwaysRadioButton" />
     </StackPanel>
 
-    <CheckBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" x:Name="StartWithWindowsCheckBox" VerticalAlignment="Top" />
+    <CheckBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" x:Name="StartWithWindowsCheckBox" VerticalAlignment="Top" />
 
-    <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+    <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
       <Button x:Name="SaveButton" Width="90" Margin="0,0,8,0" Click="Save_Click" />
       <Button x:Name="CancelButton" Width="90" Click="Cancel_Click" />
     </StackPanel>
