@@ -41,7 +41,7 @@ public sealed class AdapterTests
         var writer = new ClipboardWriter(_ =>
         {
             attempts++;
-            if (attempts == 1)
+            if (attempts < 10)
             {
                 throw new COMException("OpenClipboard failed", unchecked((int)0x800401D0));
             }
@@ -51,6 +51,6 @@ public sealed class AdapterTests
 
         await writer.WriteTextAsync("recognized text");
 
-        Assert.Equal(2, attempts);
+        Assert.Equal(10, attempts);
     }
 }

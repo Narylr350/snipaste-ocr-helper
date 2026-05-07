@@ -19,7 +19,7 @@ public sealed class ClipboardWriter : IClipboardWriter
 
     public async Task WriteTextAsync(string text, CancellationToken cancellationToken = default)
     {
-        for (var attempt = 0; attempt < 3; attempt++)
+        for (var attempt = 0; attempt < 10; attempt++)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try
@@ -27,9 +27,9 @@ public sealed class ClipboardWriter : IClipboardWriter
                 await writeText(text);
                 return;
             }
-            catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x800401D0) && attempt < 2)
+            catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x800401D0) && attempt < 9)
             {
-                await Task.Delay(100, cancellationToken);
+                await Task.Delay(200, cancellationToken);
             }
         }
     }
