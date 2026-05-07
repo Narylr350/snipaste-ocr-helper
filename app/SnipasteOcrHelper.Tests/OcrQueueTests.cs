@@ -1,6 +1,7 @@
 using SnipasteOcrHelper.Core;
 using SnipasteOcrHelper.History;
 using SnipasteOcrHelper.Queue;
+using SnipasteOcrHelper.Settings;
 
 namespace SnipasteOcrHelper.Tests;
 
@@ -79,6 +80,65 @@ public sealed class OcrQueueTests
         Assert.Contains(entries, entry => entry.FileName == "failed.png" && entry.Status == OcrHistoryStatus.Failed && entry.Detail == "bad image");
     }
 
+    [Fact]
+    public async Task DrainAsync_DeletesOnlySuccessfulImages_WhenDeleteModeIsOnSuccess()
+    {
+        var ocr = new SequenceOcrProvider(
+            OcrResult.Success("recognized text"),
+            OcrResult.Success("   "),
+            OcrResult.Failure("bad image"));
+        var deleter = new FakeImageFileDeleter();
+        var queue = new OcrQueue(() => ocr, new FakeClipboardWriter(), _ => { }, imageDeleteMode: OcrImageDeleteMode.OnSuccess, imageFileDeleter: deleter);
+
+        await queue.EnqueueAsync("success.png");
+        await queue.EnqueueAsync("empty.png");
+        await queue.EnqueueAsync("failed.png");
+        await queue.DrainAsync();
+
+        Assert.Equal([Path.GetFullPath("success.png")], deleter.Deleted);
+    }
+
+    [Fact]
+    public async Task DrainAsync_DeletesEveryProcessedImage_WhenDeleteModeIsAlways()
+    {
+        var ocr = new SequenceOcrProvider(
+            OcrResult.Success("recognized text"),
+            OcrResult.Success("   "),
+            OcrResult.Failure("bad image"));
+        var deleter = new FakeImageFileDeleter();
+        var queue = new OcrQueue(() => ocr, new FakeClipboardWriter(), _ => { }, imageDeleteMode: OcrImageDeleteMode.Always, imageFileDeleter: deleter);
+
+        await queue.EnqueueAsync("success.png");
+        await queue.EnqueueAsync("empty.png");
+        await queue.EnqueueAsync("failed.png");
+        await queue.DrainAsync();
+
+        Assert.Equal([
+            Path.GetFullPath("success.png"),
+            Path.GetFullPath("empty.png"),
+            Path.GetFullPath("failed.png")], deleter.Deleted);
+    }
+
+    [Fact]
+    public async Task DrainAsync_ContinuesAfterImageDeleteFailure()
+    {
+        var ocr = new SequenceOcrProvider(
+            OcrResult.Success("first text"),
+            OcrResult.Success("second text"));
+        var clipboard = new FakeClipboardWriter();
+        var statuses = new List<AppStatusUpdate>();
+        var deleter = new FakeImageFileDeleter { ThrowOnDelete = true };
+        var queue = new OcrQueue(() => ocr, clipboard, statuses.Add, imageDeleteMode: OcrImageDeleteMode.Always, imageFileDeleter: deleter);
+
+        await queue.EnqueueAsync("first.png");
+        await queue.EnqueueAsync("second.png");
+        await queue.DrainAsync();
+
+        Assert.Equal("second text", clipboard.LastText);
+        Assert.Equal(2, deleter.Deleted.Count);
+        Assert.Contains(statuses, s => s.Status == AppStatus.Error && s.Message.Contains("delete failed"));
+    }
+
     private sealed class FakeOcrProvider : IImageOcrProvider
     {
         private readonly OcrResult result;
@@ -118,6 +178,23 @@ public sealed class OcrQueueTests
         public Task WriteTextAsync(string text, CancellationToken cancellationToken = default)
         {
             LastText = text;
+            return Task.CompletedTask;
+        }
+    }
+
+    private sealed class FakeImageFileDeleter : IImageFileDeleter
+    {
+        public bool ThrowOnDelete { get; init; }
+        public List<string> Deleted { get; } = [];
+
+        public Task MoveToRecycleBinAsync(string path, CancellationToken cancellationToken = default)
+        {
+            Deleted.Add(path);
+            if (ThrowOnDelete)
+            {
+                throw new IOException("delete failed");
+            }
+
             return Task.CompletedTask;
         }
     }

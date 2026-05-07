@@ -20,6 +20,10 @@ public static class Resources
     public static string SettingsTessDataDirectory => GetString(nameof(SettingsTessDataDirectory));
     public static string SettingsOcrLanguage => GetString(nameof(SettingsOcrLanguage));
     public static string SettingsStartWithWindows => GetString(nameof(SettingsStartWithWindows));
+    public static string SettingsImageDeleteMode => GetString(nameof(SettingsImageDeleteMode));
+    public static string SettingsImageDeleteNever => GetString(nameof(SettingsImageDeleteNever));
+    public static string SettingsImageDeleteOnSuccess => GetString(nameof(SettingsImageDeleteOnSuccess));
+    public static string SettingsImageDeleteAlways => GetString(nameof(SettingsImageDeleteAlways));
     public static string SettingsBrowse => GetString(nameof(SettingsBrowse));
     public static string SettingsSave => GetString(nameof(SettingsSave));
     public static string SettingsCancel => GetString(nameof(SettingsCancel));

@@ -17,6 +17,10 @@
   <data name="SettingsTessDataDirectory" xml:space="preserve"><value>Tessdata directory</value></data>
   <data name="SettingsOcrLanguage" xml:space="preserve"><value>OCR language</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
+  <data name="SettingsImageDeleteMode" xml:space="preserve"><value>After recognition</value></data>
+  <data name="SettingsImageDeleteNever" xml:space="preserve"><value>Do not delete</value></data>
+  <data name="SettingsImageDeleteOnSuccess" xml:space="preserve"><value>Delete successful images</value></data>
+  <data name="SettingsImageDeleteAlways" xml:space="preserve"><value>Always delete images</value></data>
   <data name="SettingsBrowse" xml:space="preserve"><value>Browse</value></data>
   <data name="SettingsSave" xml:space="preserve"><value>Save</value></data>
   <data name="SettingsCancel" xml:space="preserve"><value>Cancel</value></data>

@@ -7,4 +7,5 @@ public sealed class AppSettings
     public string OcrLanguage { get; init; } = "eng+chi_sim";
     public bool MonitoringEnabled { get; init; } = true;
     public bool StartWithWindows { get; init; }
+    public OcrImageDeleteMode ImageDeleteMode { get; init; } = OcrImageDeleteMode.Never;
 }

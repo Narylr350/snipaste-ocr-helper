@@ -35,7 +35,8 @@ public sealed class AppHost : IDisposable
             () => new TesseractOcrProvider(settings.TessDataDirectory, settings.OcrLanguage),
             clipboard,
             UpdateStatus,
-            history);
+            history,
+            () => settings.ImageDeleteMode);
         watcher = new ScreenshotWatcher(async path =>
         {
             await queue.EnqueueAsync(path);

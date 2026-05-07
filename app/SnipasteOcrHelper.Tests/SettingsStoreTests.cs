@@ -15,6 +15,7 @@ public sealed class SettingsStoreTests
         Assert.Equal("eng+chi_sim", settings.OcrLanguage);
         Assert.True(settings.MonitoringEnabled);
         Assert.False(settings.StartWithWindows);
+        Assert.Equal(OcrImageDeleteMode.Never, settings.ImageDeleteMode);
         Assert.Equal(string.Empty, settings.WatchDirectory);
         Assert.Equal(DefaultPaths.TessDataDirectory, settings.TessDataDirectory);
     }
@@ -53,7 +54,8 @@ public sealed class SettingsStoreTests
             TessDataDirectory = @"C:\tessdata",
             OcrLanguage = "eng+chi_sim",
             MonitoringEnabled = false,
-            StartWithWindows = true
+            StartWithWindows = true,
+            ImageDeleteMode = OcrImageDeleteMode.Always
         };
 
         await store.SaveAsync(original);
@@ -64,5 +66,6 @@ public sealed class SettingsStoreTests
         Assert.Equal(original.OcrLanguage, loaded.OcrLanguage);
         Assert.Equal(original.MonitoringEnabled, loaded.MonitoringEnabled);
         Assert.Equal(original.StartWithWindows, loaded.StartWithWindows);
+        Assert.Equal(original.ImageDeleteMode, loaded.ImageDeleteMode);
     }
 }

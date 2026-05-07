@@ -19,6 +19,7 @@ public partial class SettingsWindow : Window
         originalSettings = settings;
         WatchDirectoryTextBox.Text = settings.WatchDirectory;
         TessDataDirectoryTextBox.Text = settings.TessDataDirectory;
+        ApplyImageDeleteMode(settings.ImageDeleteMode);
         StartWithWindowsCheckBox.IsChecked = settings.StartWithWindows;
     }
 
@@ -36,6 +37,10 @@ public partial class SettingsWindow : Window
         TessDataDirectoryLabel.Text = Strings.SettingsTessDataDirectory;
         BrowseTessDataDirectoryButton.Content = Strings.SettingsBrowse;
         OcrLanguageLabel.Text = Strings.SettingsOcrLanguage;
+        ImageDeleteModeLabel.Text = Strings.SettingsImageDeleteMode;
+        ImageDeleteNeverRadioButton.Content = Strings.SettingsImageDeleteNever;
+        ImageDeleteOnSuccessRadioButton.Content = Strings.SettingsImageDeleteOnSuccess;
+        ImageDeleteAlwaysRadioButton.Content = Strings.SettingsImageDeleteAlways;
         StartWithWindowsCheckBox.Content = Strings.SettingsStartWithWindows;
         SaveButton.Content = Strings.SettingsSave;
         CancelButton.Content = Strings.SettingsCancel;
@@ -44,6 +49,23 @@ public partial class SettingsWindow : Window
     private void BrowseTessDataDirectory_Click(object sender, RoutedEventArgs e)
     {
         BrowseInto(TessDataDirectoryTextBox);
+    }
+
+    private void ApplyImageDeleteMode(OcrImageDeleteMode mode)
+    {
+        ImageDeleteNeverRadioButton.IsChecked = mode == OcrImageDeleteMode.Never;
+        ImageDeleteOnSuccessRadioButton.IsChecked = mode == OcrImageDeleteMode.OnSuccess;
+        ImageDeleteAlwaysRadioButton.IsChecked = mode == OcrImageDeleteMode.Always;
+    }
+
+    private OcrImageDeleteMode ReadImageDeleteMode()
+    {
+        if (ImageDeleteAlwaysRadioButton.IsChecked == true)
+        {
+            return OcrImageDeleteMode.Always;
+        }
+
+        return ImageDeleteOnSuccessRadioButton.IsChecked == true ? OcrImageDeleteMode.OnSuccess : OcrImageDeleteMode.Never;
     }
 
     private static void BrowseInto(System.Windows.Controls.TextBox target)
@@ -63,7 +85,8 @@ public partial class SettingsWindow : Window
             TessDataDirectory = TessDataDirectoryTextBox.Text.Trim(),
             OcrLanguage = originalSettings.OcrLanguage,
             MonitoringEnabled = true,
-            StartWithWindows = StartWithWindowsCheckBox.IsChecked == true
+            StartWithWindows = StartWithWindowsCheckBox.IsChecked == true,
+            ImageDeleteMode = ReadImageDeleteMode()
         };
         DialogResult = true;
     }

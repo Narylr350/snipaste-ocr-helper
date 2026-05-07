@@ -17,6 +17,10 @@
   <data name="SettingsTessDataDirectory" xml:space="preserve"><value>Tessdata 目录</value></data>
   <data name="SettingsOcrLanguage" xml:space="preserve"><value>OCR 语言</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>开机启动</value></data>
+  <data name="SettingsImageDeleteMode" xml:space="preserve"><value>识别后处理图片</value></data>
+  <data name="SettingsImageDeleteNever" xml:space="preserve"><value>不删除</value></data>
+  <data name="SettingsImageDeleteOnSuccess" xml:space="preserve"><value>识别成功后删除</value></data>
+  <data name="SettingsImageDeleteAlways" xml:space="preserve"><value>总是删除</value></data>
   <data name="SettingsBrowse" xml:space="preserve"><value>浏览</value></data>
   <data name="SettingsSave" xml:space="preserve"><value>保存</value></data>
   <data name="SettingsCancel" xml:space="preserve"><value>取消</value></data>

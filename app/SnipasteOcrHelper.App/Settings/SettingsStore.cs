@@ -45,7 +45,8 @@ public sealed class SettingsStore
             WatchDirectory = settings.WatchDirectory,
             OcrLanguage = settings.OcrLanguage,
             MonitoringEnabled = settings.MonitoringEnabled,
-            StartWithWindows = settings.StartWithWindows
+            StartWithWindows = settings.StartWithWindows,
+            ImageDeleteMode = settings.ImageDeleteMode
         };
     }
 

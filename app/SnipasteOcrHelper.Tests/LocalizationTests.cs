@@ -16,6 +16,10 @@ public sealed class LocalizationTests
             Assert.Equal("Open Settings", Resources.TrayOpenSettings);
             Assert.Equal("OCR History", Resources.TrayOcrHistory);
             Assert.Equal("Snipaste OCR Helper Settings", Resources.SettingsTitle);
+            Assert.Equal("After recognition", Resources.SettingsImageDeleteMode);
+            Assert.Equal("Do not delete", Resources.SettingsImageDeleteNever);
+            Assert.Equal("Delete successful images", Resources.SettingsImageDeleteOnSuccess);
+            Assert.Equal("Always delete images", Resources.SettingsImageDeleteAlways);
             Assert.Equal("Recognition History", Resources.HistoryTitle);
             Assert.Equal("Success", Resources.HistoryStatusSuccess);
         }
@@ -36,6 +40,10 @@ public sealed class LocalizationTests
             Assert.Equal("打开设置", Resources.TrayOpenSettings);
             Assert.Equal("识别记录", Resources.TrayOcrHistory);
             Assert.Equal("Snipaste OCR Helper 设置", Resources.SettingsTitle);
+            Assert.Equal("识别后处理图片", Resources.SettingsImageDeleteMode);
+            Assert.Equal("不删除", Resources.SettingsImageDeleteNever);
+            Assert.Equal("识别成功后删除", Resources.SettingsImageDeleteOnSuccess);
+            Assert.Equal("总是删除", Resources.SettingsImageDeleteAlways);
             Assert.Equal("识别记录", Resources.HistoryTitle);
             Assert.Equal("成功", Resources.HistoryStatusSuccess);
         }
@@ -57,6 +65,9 @@ public sealed class LocalizationTests
         Assert.DoesNotContain("Text=\"Tessdata directory\"", xaml);
         Assert.DoesNotContain("Text=\"OCR language\"", xaml);
         Assert.DoesNotContain("Content=\"Start with Windows\"", xaml);
+        Assert.DoesNotContain("Content=\"Do not delete\"", xaml);
+        Assert.DoesNotContain("Content=\"Delete successful images\"", xaml);
+        Assert.DoesNotContain("Content=\"Always delete images\"", xaml);
         Assert.DoesNotContain("Content=\"Browse\"", xaml);
         Assert.DoesNotContain("Content=\"Save\"", xaml);
         Assert.DoesNotContain("Content=\"Cancel\"", xaml);
