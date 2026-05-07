@@ -42,6 +42,7 @@ public sealed class SettingsStore
             OcrLanguage = settings.OcrLanguage,
             MonitoringEnabled = settings.MonitoringEnabled,
             StartWithWindows = settings.StartWithWindows,
+            SetupCompleted = settings.SetupCompleted,
             ImageDeleteMode = settings.ImageDeleteMode,
             OcrEngine = settings.OcrEngine,
             RapidOcrModelPack = settings.RapidOcrModelPack

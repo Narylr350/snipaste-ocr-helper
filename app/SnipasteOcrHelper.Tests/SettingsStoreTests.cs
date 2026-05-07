@@ -16,10 +16,42 @@ public sealed class SettingsStoreTests
         Assert.True(settings.MonitoringEnabled);
         Assert.False(settings.StartWithWindows);
         Assert.Equal(OcrImageDeleteMode.Never, settings.ImageDeleteMode);
-        Assert.Equal(OcrEngineKind.Tesseract, settings.OcrEngine);
+        Assert.Equal(OcrEngineKind.RapidOcr, settings.OcrEngine);
         Assert.Equal(RapidOcrModelPack.ChineseEnglish, settings.RapidOcrModelPack);
         Assert.Equal(string.Empty, settings.WatchDirectory);
         Assert.Equal(DefaultPaths.TessDataDirectory, settings.TessDataDirectory);
+    }
+
+    [Fact]
+    public async Task LoadAsync_DefaultsSetupCompletedToFalse_WhenSettingsFileDoesNotExist()
+    {
+        var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"), "settings.json");
+        var store = new SettingsStore(path);
+
+        var settings = await store.LoadAsync();
+
+        Assert.False(settings.SetupCompleted);
+    }
+
+    [Fact]
+    public async Task LoadAsync_PreservesSetupCompletedFromSavedSettings()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(dir);
+        var path = Path.Combine(dir, "settings.json");
+        await File.WriteAllTextAsync(path, """
+            {
+              "WatchDirectory": "C:\\Screenshots",
+              "OcrLanguage": "eng+chi_sim",
+              "MonitoringEnabled": true,
+              "SetupCompleted": true
+            }
+            """);
+        var store = new SettingsStore(path);
+
+        var settings = await store.LoadAsync();
+
+        Assert.True(settings.SetupCompleted);
     }
 
     [Fact]

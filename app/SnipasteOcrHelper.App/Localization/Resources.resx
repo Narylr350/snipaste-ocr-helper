@@ -36,6 +36,15 @@
   <data name="SettingsSectionPostRecognition" xml:space="preserve"><value>Post-recognition</value></data>
   <data name="SettingsSectionSystemMaintenance" xml:space="preserve"><value>System / Maintenance</value></data>
   <data name="SettingsOpenLogFolder" xml:space="preserve"><value>Open log folder</value></data>
+  <data name="SetupWizardTitle" xml:space="preserve"><value>Welcome</value></data>
+  <data name="SetupWizardFeatureIntro" xml:space="preserve"><value>Snipaste OCR Helper can monitor Snipaste screenshot folders, OCR new images, copy recognized text to the clipboard, keep recognition history, optionally delete processed images, and open logs for troubleshooting.</value></data>
+  <data name="SetupWizardWatchDirectoryHelp" xml:space="preserve"><value>Choose the folder where Snipaste automatically saves screenshots. The helper monitors this folder for new images.</value></data>
+  <data name="SetupWizardOcrEngineHelp" xml:space="preserve"><value>RapidOCR is the recommended default for better recognition. Tesseract remains available if you prefer it.</value></data>
+  <data name="SetupWizardTesseractLanguagesHelp" xml:space="preserve"><value>Select the Tesseract languages to download when using the Tesseract engine.</value></data>
+  <data name="SetupWizardRapidOcrModelHelp" xml:space="preserve"><value>Select the RapidOCR model pack to download when using the RapidOCR engine.</value></data>
+  <data name="SetupWizardDownloadHelp" xml:space="preserve"><value>Download the resources required by the selected OCR engine before finishing setup.</value></data>
+  <data name="SetupWizardDownloadResources" xml:space="preserve"><value>Download required resources</value></data>
+  <data name="SetupWizardFinish" xml:space="preserve"><value>Finish setup</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>Start with Windows</value></data>
   <data name="SettingsImageDeleteMode" xml:space="preserve"><value>After recognition</value></data>
   <data name="SettingsImageDeleteNever" xml:space="preserve"><value>Do not delete</value></data>

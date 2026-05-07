@@ -39,6 +39,15 @@ public static class Resources
     public static string SettingsSectionPostRecognition => GetString(nameof(SettingsSectionPostRecognition));
     public static string SettingsSectionSystemMaintenance => GetString(nameof(SettingsSectionSystemMaintenance));
     public static string SettingsOpenLogFolder => GetString(nameof(SettingsOpenLogFolder));
+    public static string SetupWizardTitle => GetString(nameof(SetupWizardTitle));
+    public static string SetupWizardFeatureIntro => GetString(nameof(SetupWizardFeatureIntro));
+    public static string SetupWizardWatchDirectoryHelp => GetString(nameof(SetupWizardWatchDirectoryHelp));
+    public static string SetupWizardOcrEngineHelp => GetString(nameof(SetupWizardOcrEngineHelp));
+    public static string SetupWizardTesseractLanguagesHelp => GetString(nameof(SetupWizardTesseractLanguagesHelp));
+    public static string SetupWizardRapidOcrModelHelp => GetString(nameof(SetupWizardRapidOcrModelHelp));
+    public static string SetupWizardDownloadHelp => GetString(nameof(SetupWizardDownloadHelp));
+    public static string SetupWizardDownloadResources => GetString(nameof(SetupWizardDownloadResources));
+    public static string SetupWizardFinish => GetString(nameof(SetupWizardFinish));
     public static string SettingsStartWithWindows => GetString(nameof(SettingsStartWithWindows));
     public static string SettingsImageDeleteMode => GetString(nameof(SettingsImageDeleteMode));
     public static string SettingsImageDeleteNever => GetString(nameof(SettingsImageDeleteNever));

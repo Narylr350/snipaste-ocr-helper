@@ -36,6 +36,15 @@
   <data name="SettingsSectionPostRecognition" xml:space="preserve"><value>识别后处理</value></data>
   <data name="SettingsSectionSystemMaintenance" xml:space="preserve"><value>系统 / 维护</value></data>
   <data name="SettingsOpenLogFolder" xml:space="preserve"><value>打开日志文件夹</value></data>
+  <data name="SetupWizardTitle" xml:space="preserve"><value>欢迎使用</value></data>
+  <data name="SetupWizardFeatureIntro" xml:space="preserve"><value>Snipaste OCR Helper 可以监控 Snipaste 截图目录，自动识别新图片，把文字写入剪贴板，保留识别记录，可选择识别后删除图片，并可打开日志排查问题。</value></data>
+  <data name="SetupWizardWatchDirectoryHelp" xml:space="preserve"><value>选择 Snipaste 自动保存截图的目录，程序会监控这里的新图片。</value></data>
+  <data name="SetupWizardOcrEngineHelp" xml:space="preserve"><value>RapidOCR 是默认推荐引擎，识别效果更好；如果你更想用 Tesseract，也可以切换。</value></data>
+  <data name="SetupWizardTesseractLanguagesHelp" xml:space="preserve"><value>使用 Tesseract 时，选择需要下载的识别语言。</value></data>
+  <data name="SetupWizardRapidOcrModelHelp" xml:space="preserve"><value>使用 RapidOCR 时，选择需要下载的模型包。</value></data>
+  <data name="SetupWizardDownloadHelp" xml:space="preserve"><value>完成设置前，先下载当前 OCR 引擎需要的资源。</value></data>
+  <data name="SetupWizardDownloadResources" xml:space="preserve"><value>下载所需资源</value></data>
+  <data name="SetupWizardFinish" xml:space="preserve"><value>完成设置</value></data>
   <data name="SettingsStartWithWindows" xml:space="preserve"><value>开机启动</value></data>
   <data name="SettingsImageDeleteMode" xml:space="preserve"><value>识别后处理图片</value></data>
   <data name="SettingsImageDeleteNever" xml:space="preserve"><value>不删除</value></data>

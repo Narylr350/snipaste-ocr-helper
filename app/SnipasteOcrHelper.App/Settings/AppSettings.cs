@@ -7,7 +7,8 @@ public sealed class AppSettings
     public string OcrLanguage { get; init; } = "eng+chi_sim";
     public bool MonitoringEnabled { get; init; } = true;
     public bool StartWithWindows { get; init; }
+    public bool SetupCompleted { get; init; }
     public OcrImageDeleteMode ImageDeleteMode { get; init; } = OcrImageDeleteMode.Never;
-    public OcrEngineKind OcrEngine { get; init; } = OcrEngineKind.Tesseract;
+    public OcrEngineKind OcrEngine { get; init; } = OcrEngineKind.RapidOcr;
     public RapidOcrModelPack RapidOcrModelPack { get; init; } = RapidOcrModelPack.ChineseEnglish;
 }

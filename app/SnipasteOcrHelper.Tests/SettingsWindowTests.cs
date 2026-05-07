@@ -104,6 +104,16 @@ public sealed class SettingsWindowTests
     }
 
     [Fact]
+    public void Window_SavePreservesExistingSetupCompletionFlag()
+    {
+        var root = FindRepositoryRoot();
+        var source = File.ReadAllText(Path.Combine(root, "app", "SnipasteOcrHelper.App", "Settings", "SettingsWindow.xaml.cs"));
+
+        Assert.Contains("private readonly AppSettings initialSettings;", source);
+        Assert.Contains("SetupCompleted = initialSettings.SetupCompleted", source);
+    }
+
+    [Fact]
     public void Window_GroupsEngineSpecificSettingsSeparately()
     {
         var root = FindRepositoryRoot();

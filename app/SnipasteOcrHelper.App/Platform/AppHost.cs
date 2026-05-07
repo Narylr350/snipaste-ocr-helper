@@ -57,6 +57,13 @@ public sealed class AppHost : IDisposable
     {
         settings = await settingsStore.LoadAsync();
         ApplyStartupSetting(settings.StartWithWindows);
+        if (NeedsInitialSetup(settings))
+        {
+            UpdateStatus(new AppStatusUpdate(AppStatus.NeedsSetup, Strings.StatusNeedsSetup));
+            OpenSetupWizard();
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(settings.WatchDirectory) || !Directory.Exists(settings.WatchDirectory))
         {
             UpdateStatus(new AppStatusUpdate(AppStatus.NeedsSetup, Strings.StatusConfigureWatchDirectory));
@@ -76,17 +83,50 @@ public sealed class AppHost : IDisposable
             logger.Error);
         if (window.ShowDialog() == true && window.SavedSettings is not null)
         {
-            settings = window.SavedSettings;
-            _ = settingsStore.SaveAsync(settings);
-            ApplyStartupSetting(settings.StartWithWindows);
-            if (Directory.Exists(settings.WatchDirectory))
-            {
-                StartWatcher();
-            }
-            else
-            {
-                UpdateStatus(new AppStatusUpdate(AppStatus.Error, Strings.StatusWatchDirectoryMissing));
-            }
+            ApplySavedSettings(window.SavedSettings);
+        }
+    }
+
+    private static bool NeedsInitialSetup(AppSettings settings)
+    {
+        if (settings.SetupCompleted)
+        {
+            return false;
+        }
+
+        if (settings.OcrEngine == OcrEngineKind.RapidOcr)
+        {
+            return new RapidOcrModelManager(DefaultPaths.RapidOcrModelDirectory, settings.RapidOcrModelPack).GetStatus() != RapidOcrModelStatus.Installed;
+        }
+
+        return new TesseractLanguagePackManager(DefaultPaths.TessDataDirectory, settings.OcrLanguage).GetStatus() != TesseractLanguagePackStatus.Installed;
+    }
+
+    private void OpenSetupWizard()
+    {
+        var window = new SetupWizardWindow(
+            settings,
+            new RapidOcrModelManager(DefaultPaths.RapidOcrModelDirectory, settings.RapidOcrModelPack),
+            new TesseractLanguagePackManager(DefaultPaths.TessDataDirectory, settings.OcrLanguage),
+            logger.Error);
+        if (window.ShowDialog() == true && window.SavedSettings is not null)
+        {
+            ApplySavedSettings(window.SavedSettings);
+        }
+    }
+
+    private void ApplySavedSettings(AppSettings savedSettings)
+    {
+        settings = savedSettings;
+        _ = settingsStore.SaveAsync(settings);
+        ApplyStartupSetting(settings.StartWithWindows);
+        if (Directory.Exists(settings.WatchDirectory))
+        {
+            StartWatcher();
+        }
+        else
+        {
+            UpdateStatus(new AppStatusUpdate(AppStatus.Error, Strings.StatusWatchDirectoryMissing));
         }
     }
 
