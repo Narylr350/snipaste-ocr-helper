@@ -81,6 +81,18 @@ public sealed class OcrQueueTests
     }
 
     [Fact]
+    public async Task DrainAsync_DisposesDisposableOcrProviderAfterRecognition()
+    {
+        var ocr = new DisposableOcrProvider(OcrResult.Success("recognized text"));
+        var queue = new OcrQueue(() => ocr, new FakeClipboardWriter(), _ => { });
+
+        await queue.EnqueueAsync("success.png");
+        await queue.DrainAsync();
+
+        Assert.True(ocr.Disposed);
+    }
+
+    [Fact]
     public async Task DrainAsync_DeletesOnlySuccessfulImages_WhenDeleteModeIsOnSuccess()
     {
         var ocr = new SequenceOcrProvider(
@@ -153,6 +165,28 @@ public sealed class OcrQueueTests
         {
             Processed.Add(imagePath);
             return Task.FromResult(result);
+        }
+    }
+
+    private sealed class DisposableOcrProvider : IImageOcrProvider, IDisposable
+    {
+        private readonly OcrResult result;
+
+        public DisposableOcrProvider(OcrResult result)
+        {
+            this.result = result;
+        }
+
+        public bool Disposed { get; private set; }
+
+        public Task<OcrResult> RecognizeAsync(string imagePath, CancellationToken cancellationToken = default)
+        {
+            return Task.FromResult(result);
+        }
+
+        public void Dispose()
+        {
+            Disposed = true;
         }
     }
 

@@ -74,7 +74,9 @@ public sealed class OcrQueue
                 try
                 {
                     var fileName = Path.GetFileName(path);
-                    var result = await ocrProviderFactory().RecognizeAsync(path, cancellationToken);
+                    var provider = ocrProviderFactory();
+                    using var disposableProvider = provider as IDisposable;
+                    var result = await provider.RecognizeAsync(path, cancellationToken);
                     if (!result.IsSuccess)
                     {
                         var error = result.Error ?? string.Empty;
