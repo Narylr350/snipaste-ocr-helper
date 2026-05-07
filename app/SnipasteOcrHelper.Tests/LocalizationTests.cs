@@ -76,6 +76,8 @@ public sealed class LocalizationTests
         Assert.DoesNotContain("Resume Monitoring", tray);
         Assert.DoesNotContain("\"Exit\"", tray);
         Assert.Contains("OpenHistory", appHost);
+        Assert.Contains("historyWindow", appHost);
+        Assert.DoesNotContain("new OcrHistoryWindow(history).Show();", appHost);
         Assert.DoesNotContain("Configure watch directory", appHost);
         Assert.DoesNotContain("Watch directory does not exist", appHost);
         Assert.DoesNotContain("Monitoring paused", appHost);
@@ -94,6 +96,12 @@ public sealed class LocalizationTests
         Assert.DoesNotContain("Header=\"Status\"", xaml);
         Assert.DoesNotContain("Header=\"Detail\"", xaml);
         Assert.DoesNotContain("No recognition records yet.", xaml);
+        Assert.Contains("DetailTextBox", source);
+        Assert.Contains("history.Changed", source);
+        Assert.Contains("TextTrimming", xaml);
+        Assert.Contains("Value=\"NoWrap\"", xaml);
+        Assert.Contains("IsReadOnly=\"True\"", xaml);
+        Assert.Contains("AcceptsReturn=\"True\"", xaml);
         Assert.Contains("HistoryStatusSuccess", source);
         Assert.Contains("HistoryStatusNoText", source);
         Assert.Contains("HistoryStatusFailed", source);

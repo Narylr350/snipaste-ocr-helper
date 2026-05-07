@@ -6,6 +6,8 @@ public sealed class OcrHistoryStore
     private readonly int capacity;
     private readonly Queue<OcrHistoryEntry> entries = new();
 
+    public event EventHandler? Changed;
+
     public OcrHistoryStore(int capacity = 100)
     {
         this.capacity = capacity;
@@ -21,6 +23,8 @@ public sealed class OcrHistoryStore
                 entries.Dequeue();
             }
         }
+
+        Changed?.Invoke(this, EventArgs.Empty);
     }
 
     public IReadOnlyList<OcrHistoryEntry> Snapshot()

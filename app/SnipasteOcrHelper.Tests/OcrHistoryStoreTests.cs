@@ -31,4 +31,17 @@ public sealed class OcrHistoryStoreTests
         Assert.DoesNotContain(entries, entry => entry.FileName == "first.png");
         Assert.Contains(entries, entry => entry.FileName == "third.png" && entry.Detail == "bad");
     }
+
+    [Fact]
+    public void Add_RaisesChangedAfterEntryIsStored()
+    {
+        var store = new OcrHistoryStore();
+        IReadOnlyList<OcrHistoryEntry>? snapshot = null;
+        store.Changed += (_, _) => snapshot = store.Snapshot();
+
+        store.Add(new OcrHistoryEntry(DateTimeOffset.UtcNow, "capture.png", OcrHistoryStatus.Success, "text"));
+
+        Assert.NotNull(snapshot);
+        Assert.Contains(snapshot!, entry => entry.FileName == "capture.png" && entry.Detail == "text");
+    }
 }

@@ -22,6 +22,7 @@ public sealed class AppHost : IDisposable
     private readonly OcrQueue queue;
     private readonly TrayController tray;
     private AppSettings settings = new();
+    private OcrHistoryWindow? historyWindow;
     private bool paused;
 
     private AppHost(SettingsStore settingsStore, StartupManager startupManager, AppLogger logger)
@@ -83,7 +84,14 @@ public sealed class AppHost : IDisposable
 
     private void OpenHistory()
     {
-        new OcrHistoryWindow(history).Show();
+        if (historyWindow is null)
+        {
+            historyWindow = new OcrHistoryWindow(history);
+            historyWindow.Closed += (_, _) => historyWindow = null;
+        }
+
+        historyWindow.Show();
+        historyWindow.Activate();
     }
 
     private void StartWatcher()
