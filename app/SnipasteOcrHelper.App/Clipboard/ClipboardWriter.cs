@@ -6,6 +6,7 @@ namespace SnipasteOcrHelper.Clipboard;
 public sealed class ClipboardWriter : IClipboardWriter
 {
     private readonly Func<string, Task> writeText;
+    private readonly Func<TimeSpan, CancellationToken, Task> delay;
 
     public ClipboardWriter()
         : this(text => System.Windows.Application.Current.Dispatcher.InvokeAsync(() => System.Windows.Forms.Clipboard.SetDataObject(text, true, 20, 300)).Task)
@@ -13,13 +14,19 @@ public sealed class ClipboardWriter : IClipboardWriter
     }
 
     public ClipboardWriter(Func<string, Task> writeText)
+        : this(writeText, Task.Delay)
+    {
+    }
+
+    public ClipboardWriter(Func<string, Task> writeText, Func<TimeSpan, CancellationToken, Task> delay)
     {
         this.writeText = writeText;
+        this.delay = delay;
     }
 
     public async Task WriteTextAsync(string text, CancellationToken cancellationToken = default)
     {
-        for (var attempt = 0; attempt < 20; attempt++)
+        while (true)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try
@@ -27,9 +34,9 @@ public sealed class ClipboardWriter : IClipboardWriter
                 await writeText(text);
                 return;
             }
-            catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x800401D0) && attempt < 19)
+            catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x800401D0))
             {
-                await Task.Delay(300, cancellationToken);
+                await delay(TimeSpan.FromMilliseconds(300), cancellationToken);
             }
         }
     }

@@ -53,4 +53,26 @@ public sealed class AdapterTests
 
         Assert.Equal(20, attempts);
     }
+
+    [Fact]
+    public async Task WriteTextAsync_KeepsRetryingUntilClipboardIsAvailable()
+    {
+        var attempts = 0;
+        var writer = new ClipboardWriter(
+            _ =>
+            {
+                attempts++;
+                if (attempts < 25)
+                {
+                    throw new COMException("OpenClipboard failed", unchecked((int)0x800401D0));
+                }
+
+                return Task.CompletedTask;
+            },
+            (_, _) => Task.CompletedTask);
+
+        await writer.WriteTextAsync("recognized text");
+
+        Assert.Equal(25, attempts);
+    }
 }
